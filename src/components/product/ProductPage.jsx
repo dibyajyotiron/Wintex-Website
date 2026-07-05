@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { ArrowLeft, ArrowRight, Download, Mail } from "lucide-react";
+import { OptimizedImage } from "../common/OptimizedImage";
 import { contactEmail } from "../../config/site";
 
 export function ProductPage({ product, onBack, onEnquire }) {
@@ -45,7 +46,16 @@ export function ProductPage({ product, onBack, onEnquire }) {
           </div>
         </div>
         <div className="product-page-media">
-          <img src={product.image} alt={product.name} />
+          <OptimizedImage
+            src={product.image}
+            alt={product.name}
+            width={product.imageWidth}
+            height={product.imageHeight}
+            widths={[640, 960, 1280]}
+            sizes="(max-width: 980px) calc(100vw - 36px), 470px"
+            loading="eager"
+            fetchPriority="high"
+          />
         </div>
       </div>
       <div className="product-info-grid">

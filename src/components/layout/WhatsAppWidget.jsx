@@ -1,6 +1,6 @@
 import { Send, X } from "lucide-react";
 import { useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { WhatsAppIcon } from "../common/BrandIcons";
 import { whatsappNumber } from "../../config/site";
 import { NETLIFY_FORMS, submitNetlifyForm } from "../../utils/netlifyForms";
 
@@ -60,7 +60,7 @@ export function WhatsAppWidget() {
         aria-expanded={chatOpen}
         onClick={() => setChatOpen((open) => !open)}
       >
-        {chatOpen ? <X size={24} /> : <FaWhatsapp />}
+        {chatOpen ? <X size={24} /> : <WhatsAppIcon />}
       </button>
     </div>
   );

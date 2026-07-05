@@ -4,6 +4,8 @@ export const products = [
     name: "Electronic Weighbridges",
     category: "Weighbridge",
     image: "/assets/pitless-weighbridge.png",
+    imageWidth: 1500,
+    imageHeight: 1439,
     download: "/assets/specs/pitless-weighbridge.pdf",
     summary:
       "Wintex electronic weighbridges support factories, farms, mills, dispatch yards, and bulk loading operations with modular platform structures, sealed loadcells, and micro-processor based digital indication.",
@@ -47,6 +49,8 @@ export const products = [
     name: "Heavy Duty Platform Scale",
     category: "Heavy-duty floor weighing",
     image: "/assets/platform-scale.jpg",
+    imageWidth: 760,
+    imageHeight: 1500,
     download: "/assets/specs/platform-scale.pdf",
     summary:
       "A heavy-duty electronic platform scale for industrial, commercial, and high-volume floor weighing where durable construction and dependable accuracy matter.",
@@ -75,6 +79,8 @@ export const products = [
     name: "Platform Scale",
     category: "Factories, warehouses, and loading docks",
     image: "/assets/platform-electronic-weighbridge.jpg",
+    imageWidth: 1500,
+    imageHeight: 972,
     download: "/assets/specs/platform-scale.pdf",
     summary:
       "Wintex platform weighing scales are built for bulky item weighing in factories, warehouses, shipping and receiving departments, and loading docks.",
@@ -103,6 +109,8 @@ export const products = [
     name: "Table Top Scale",
     category: "Retail and counter operations",
     image: "/assets/table-top-medium.jpg",
+    imageWidth: 1300,
+    imageHeight: 866,
     download: "/assets/specs/table-top-scale.pdf",
     summary:
       "A stainless-steel digital table top weighing scale for fast counter weighing, built with a front LED display and high-sensitivity loadcell.",
@@ -135,6 +143,8 @@ export const products = [
     name: "Chicken Scale",
     category: "Poultry and food weighing",
     image: "/assets/chicken-scale.jpg",
+    imageWidth: 832,
+    imageHeight: 1300,
     download: "/assets/specs/table-top-scale.pdf",
     summary:
       "A practical weighing scale for poultry and food counters, included in the Wintex table-top/platform range for fast commercial weighing.",
@@ -162,6 +172,8 @@ export const products = [
     name: "Jewellery Scale",
     category: "Precision scale series",
     image: "/assets/jewellery-scale.jpg",
+    imageWidth: 1241,
+    imageHeight: 1300,
     download: "/assets/specs/jewellery-scale.pdf",
     summary:
       "A high-sensitivity precision scale for jewellery, valuables, laboratory measurements, and fine counter weighing.",
@@ -196,6 +208,8 @@ export const products = [
     name: "Micro Mini Scale",
     category: "Precision scale series",
     image: "/assets/micro-mini-scale.jpg",
+    imageWidth: 1184,
+    imageHeight: 1300,
     download: "/assets/specs/micro-mini-scale.pdf",
     summary:
       "A compact precision scale from the Wintex precision range, designed for small-footprint weighing and component-level work.",
@@ -228,6 +242,8 @@ export const products = [
     name: "Digital Indicator / IT",
     category: "Weighbridge electronics",
     image: "/assets/wintex-product-render-2.jpg",
+    imageWidth: 919,
+    imageHeight: 1300,
     download: "/assets/wintex-product-catalogue.pdf",
     summary:
       "Wintex digital indicator and intelligent terminal systems support weighbridge operation with data processing, printing, communication, and reliable field use.",

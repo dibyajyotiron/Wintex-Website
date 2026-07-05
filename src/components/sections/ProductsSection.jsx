@@ -1,4 +1,5 @@
 import { FileText } from "lucide-react";
+import { OptimizedImage } from "../common/OptimizedImage";
 import { cataloguePath, productPath } from "../../config/site";
 import { products } from "../../data/products";
 
@@ -33,7 +34,14 @@ export function ProductsSection({ onOpenProduct }) {
               onOpenProduct(product);
             }}
           >
-            <img src={product.image} alt={product.name} />
+            <OptimizedImage
+              src={product.image}
+              alt={product.name}
+              width={product.imageWidth}
+              height={product.imageHeight}
+              widths={[360, 540, 720]}
+              sizes="(max-width: 680px) calc(100vw - 34px), (max-width: 980px) calc((100vw - 54px) / 2), 386px"
+            />
             <div>
               <span>{product.category}</span>
               <h3>{product.name}</h3>

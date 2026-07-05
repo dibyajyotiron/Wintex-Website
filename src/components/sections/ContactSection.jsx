@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { ExternalLink, Mail, MapPin } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { WhatsAppIcon } from "../common/BrandIcons";
 import {
   address,
   contactEmail,
@@ -190,7 +190,7 @@ export function ContactSection() {
         </label>
         <button type="submit" className="primary-action form-action">
           Send on WhatsApp
-          <FaWhatsapp size={20} />
+          <WhatsAppIcon size={20} />
         </button>
         <a
           className="secondary-action form-email-action"

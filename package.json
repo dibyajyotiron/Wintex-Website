@@ -1,7 +1,9 @@
 {
   "type": "module",
   "scripts": {
+    "predev": "node scripts/generate-responsive-assets.mjs",
     "dev": "vite --host 0.0.0.0",
+    "prebuild": "node scripts/generate-responsive-assets.mjs",
     "build": "vite build && node scripts/postbuild-seo.mjs",
     "preview": "vite preview --host 0.0.0.0"
   },
@@ -10,7 +12,6 @@
     "lucide-react": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-icons": "latest",
     "vite": "latest"
   },
   "devDependencies": {

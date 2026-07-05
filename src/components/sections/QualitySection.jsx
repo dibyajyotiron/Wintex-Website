@@ -1,10 +1,18 @@
 import { Building2, CheckCircle2, ShieldCheck } from "lucide-react";
+import { OptimizedImage } from "../common/OptimizedImage";
 
 export function QualitySection() {
   return (
     <section className="section-band quality reveal" id="quality">
       <div className="quality-media">
-        <img src="/assets/circuit-board.jpg" alt="IC board close up" />
+        <OptimizedImage
+          src="/assets/circuit-board.jpg"
+          alt="IC board close up"
+          width={1800}
+          height={1204}
+          widths={[480, 720, 960]}
+          sizes="(max-width: 980px) calc(100vw - 36px), 520px"
+        />
       </div>
       <div className="quality-copy">
         <span>Quality & legacy</span>
@@ -32,4 +40,3 @@ export function QualitySection() {
     </section>
   );
 }
-

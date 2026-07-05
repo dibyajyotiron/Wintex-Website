@@ -43,11 +43,11 @@ export const proofPoints = [
 ];
 
 export const clientLogos = [
-  { name: "Tata Steel", image: "/assets/tata-steel-logo.png" },
-  { name: "L&T", image: "/assets/lt-logo.png" },
-  { name: "Exide", image: "/assets/exide-logo.jpg" },
-  { name: "Jindal Steel and Power", image: "/assets/jindal-logo.jpg" },
-  { name: "Industrial client", image: "/assets/client-mark.png" },
+  { name: "Tata Steel", image: "/assets/tata-steel-logo.png", width: 720, height: 340 },
+  { name: "L&T", image: "/assets/lt-logo.png", width: 225, height: 225 },
+  { name: "Exide", image: "/assets/exide-logo.jpg", width: 866, height: 650 },
+  { name: "Jindal Steel and Power", image: "/assets/jindal-logo.jpg", width: 750, height: 450 },
+  { name: "Industrial client", image: "/assets/client-mark.png", width: 300, height: 168 },
 ];
 
 export const branchLocations = [

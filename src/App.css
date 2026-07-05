@@ -8,6 +8,9 @@
   -webkit-font-smoothing: antialiased;
   --red: #d40f18;
   --red-dark: #990910;
+  --accent-text: #ff626a;
+  --action-red: #b70b13;
+  --action-red-dark: #87070c;
   --ink: #f8f8f8;
   --paper: #ffffff;
   --muted: #b6bac2;
@@ -20,6 +23,9 @@
 :root[data-theme="light"] {
   color: #151515;
   background: #f6f7f8;
+  --accent-text: #b70b13;
+  --action-red: #b70b13;
+  --action-red-dark: #87070c;
   --ink: #151515;
   --muted: #5d6370;
   --line: rgba(21, 21, 21, 0.12);
@@ -58,7 +64,13 @@ body {
 body::before {
   background:
     linear-gradient(90deg, rgba(8, 8, 8, 0.96), rgba(8, 8, 8, 0.86), rgba(82, 2, 6, 0.72)),
-    url("/assets/circuit-board.jpg") center / cover fixed;
+    image-set(
+      url("/assets/optimized/circuit-board-960.avif") type("image/avif") 1x,
+      url("/assets/optimized/circuit-board-1440.avif") type("image/avif") 2x,
+      url("/assets/optimized/circuit-board-960.webp") type("image/webp") 1x,
+      url("/assets/optimized/circuit-board-1440.webp") type("image/webp") 2x,
+      url("/assets/circuit-board.jpg") type("image/jpeg") 1x
+    ) center / cover fixed;
   content: "";
   inset: 0;
   opacity: 1;
@@ -70,7 +82,13 @@ body::before {
 :root[data-theme="light"] body::before {
   background:
     linear-gradient(90deg, rgba(246, 247, 248, 0.95), rgba(246, 247, 248, 0.86), rgba(255, 235, 236, 0.72)),
-    url("/assets/circuit-board.jpg") center / cover fixed;
+    image-set(
+      url("/assets/optimized/circuit-board-960.avif") type("image/avif") 1x,
+      url("/assets/optimized/circuit-board-1440.avif") type("image/avif") 2x,
+      url("/assets/optimized/circuit-board-960.webp") type("image/webp") 1x,
+      url("/assets/optimized/circuit-board-1440.webp") type("image/webp") 2x,
+      url("/assets/circuit-board.jpg") type("image/jpeg") 1x
+    ) center / cover fixed;
 }
 
 body::after {
@@ -104,6 +122,15 @@ textarea {
 }
 
 img {
+  display: block;
+  max-width: 100%;
+}
+
+.optimized-picture {
+  display: block;
+}
+
+.optimized-picture img {
   display: block;
   max-width: 100%;
 }
@@ -151,6 +178,11 @@ img {
 .brand img {
   height: 54px;
   object-fit: contain;
+  width: 232px;
+}
+
+.brand .optimized-picture {
+  height: 54px;
   width: 232px;
 }
 
@@ -356,7 +388,7 @@ img {
 .gallery-copy span,
 .contact-copy > span {
   align-items: center;
-  color: var(--red);
+  color: var(--accent-text);
   display: inline-flex;
   font-size: 0.78rem;
   font-weight: 800;
@@ -422,13 +454,13 @@ img {
 }
 
 .primary-action {
-  background: var(--red);
+  background: var(--action-red);
   box-shadow: 0 18px 36px rgba(212, 15, 24, 0.28);
   color: #fff;
 }
 
 .primary-action:hover {
-  background: var(--red-dark);
+  background: var(--action-red-dark);
   box-shadow: 0 24px 48px rgba(212, 15, 24, 0.36);
   transform: translateY(-3px) scale(1.025);
 }
@@ -636,7 +668,15 @@ button.secondary-action {
 .product-card img {
   aspect-ratio: 1.1 / 1;
   background: #111;
+  height: 100%;
   object-fit: cover;
+  width: 100%;
+}
+
+.product-card .optimized-picture {
+  aspect-ratio: 1.1 / 1;
+  background: #111;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -645,7 +685,7 @@ button.secondary-action {
 }
 
 .product-card span {
-  color: var(--red);
+  color: var(--accent-text);
   display: block;
   font-size: 0.78rem;
   font-weight: 800;
@@ -790,7 +830,14 @@ button.secondary-action {
 
 .quality-media img {
   aspect-ratio: 0.94 / 1;
+  height: 100%;
   object-fit: cover;
+  width: 100%;
+}
+
+.quality-media .optimized-picture {
+  aspect-ratio: 0.94 / 1;
+  height: 100%;
   width: 100%;
 }
 
@@ -854,8 +901,14 @@ button.secondary-action {
 }
 
 .logo-tile img {
+  height: 70px;
   max-height: 70px;
   object-fit: contain;
+  width: 100%;
+}
+
+.logo-tile .optimized-picture {
+  height: 70px;
   width: 100%;
 }
 
@@ -1063,6 +1116,11 @@ button.secondary-action {
 .footer img {
   height: 48px;
   object-fit: contain;
+  width: 226px;
+}
+
+.footer .optimized-picture {
+  height: 48px;
   width: 226px;
 }
 
@@ -1277,7 +1335,7 @@ button.secondary-action {
 }
 
 .product-page-copy > span {
-  color: var(--red);
+  color: var(--accent-text);
   display: inline-flex;
   font-size: 0.78rem;
   font-weight: 800;
@@ -1316,7 +1374,13 @@ button.secondary-action {
   aspect-ratio: 1 / 0.9;
   border-radius: 6px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24);
+  height: 100%;
   object-fit: contain;
+  width: 100%;
+}
+
+.product-page-media .optimized-picture {
+  aspect-ratio: 1 / 0.9;
   width: 100%;
 }
 
@@ -1474,6 +1538,11 @@ button.secondary-action {
     width: 190px;
   }
 
+  .brand .optimized-picture {
+    height: 40px;
+    width: 190px;
+  }
+
   .theme-switch {
     height: 38px;
     margin-left: 6px;
@@ -1543,6 +1612,10 @@ button.secondary-action {
   }
 
   .product-card img {
+    aspect-ratio: 1.25 / 1;
+  }
+
+  .product-card .optimized-picture {
     aspect-ratio: 1.25 / 1;
   }
 
