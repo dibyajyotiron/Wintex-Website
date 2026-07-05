@@ -37,6 +37,27 @@ Netlify must build the Vite app before publishing it. This repo includes `netlif
 
 The previous Netlify log showed `No build steps found` and `Starting to deploy site from '/'`, which means Netlify was uploading the source folder instead of the built Vite output. The `netlify.toml` file fixes that.
 
+## Netlify Forms
+
+The site captures leads through Netlify Forms:
+
+- `wintex_quote`: contact section submissions from WhatsApp or email clicks.
+- `whatsapp_interest`: floating WhatsApp widget interest captures.
+
+The hidden static form definitions live in:
+
+```text
+index.html
+```
+
+The React submission helper lives in:
+
+```text
+src/utils/netlifyForms.js
+```
+
+In Netlify, make sure Forms detection is enabled, then redeploy. After deploy, Netlify should detect both form names and show submissions in the Forms tab.
+
 ## Project Structure
 
 ```text

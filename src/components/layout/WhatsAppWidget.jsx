@@ -2,16 +2,29 @@ import { Send, X } from "lucide-react";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { whatsappNumber } from "../../config/site";
+import { NETLIFY_FORMS, submitNetlifyForm } from "../../utils/netlifyForms";
 
 export function WhatsAppWidget() {
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessage, setChatMessage] = useState(
     "Hello Wintex, I would like to discuss a weighing system requirement.",
   );
+  const [chatStatus, setChatStatus] = useState("");
 
-  const sendChat = () => {
+  const sendChat = async () => {
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(chatMessage)}`;
+    setChatStatus("Saving interest...");
+    try {
+      await submitNetlifyForm(NETLIFY_FORMS.whatsappInterest, {
+        message: chatMessage,
+        source: "floating-whatsapp-widget",
+      });
+      setChatStatus("Opening WhatsApp...");
+    } catch {
+      setChatStatus("Opening WhatsApp...");
+    }
     window.open(url, "_blank", "noopener,noreferrer");
+    window.setTimeout(() => setChatStatus(""), 2400);
   };
 
   return (
@@ -37,6 +50,7 @@ export function WhatsAppWidget() {
             <Send size={17} />
             Send to WhatsApp
           </button>
+          {chatStatus && <p className="chat-status">{chatStatus}</p>}
         </div>
       )}
       <button
@@ -51,4 +65,3 @@ export function WhatsAppWidget() {
     </div>
   );
 }
-

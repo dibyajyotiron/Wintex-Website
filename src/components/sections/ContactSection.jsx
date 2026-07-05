@@ -10,14 +10,17 @@ import {
   whatsappNumber,
 } from "../../config/site";
 import { branchLocations } from "../../data/siteContent";
+import { NETLIFY_FORMS, submitNetlifyForm } from "../../utils/netlifyForms";
 
 export function ContactSection() {
   const [formState, setFormState] = useState({
     name: "",
     company: "",
+    email: "",
     phone: "",
     requirement: "",
   });
+  const [submitStatus, setSubmitStatus] = useState("");
 
   const message = useMemo(
     () =>
@@ -25,6 +28,7 @@ export function ContactSection() {
         "Hello Wintex, I would like to discuss a weighing system requirement.",
         formState.name && `Name: ${formState.name}`,
         formState.company && `Company: ${formState.company}`,
+        formState.email && `Email: ${formState.email}`,
         formState.phone && `Phone: ${formState.phone}`,
         formState.requirement && `Requirement: ${formState.requirement}`,
       ]
@@ -38,9 +42,38 @@ export function ContactSection() {
     "Wintex weighing system enquiry",
   )}&body=${encodeURIComponent(message)}`;
 
-  const handleFormSubmit = (event) => {
+  const submitLead = async (channel) => {
+    await submitNetlifyForm(NETLIFY_FORMS.quote, {
+      ...formState,
+      channel,
+      message,
+    });
+  };
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setSubmitStatus("Saving enquiry...");
+    try {
+      await submitLead("whatsapp");
+      setSubmitStatus("Enquiry saved. Opening WhatsApp...");
+    } catch {
+      setSubmitStatus("Opening WhatsApp...");
+    }
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.setTimeout(() => setSubmitStatus(""), 2600);
+  };
+
+  const handleEmailClick = async (event) => {
+    event.preventDefault();
+    setSubmitStatus("Saving enquiry...");
+    try {
+      await submitLead("email");
+      setSubmitStatus("Enquiry saved. Opening email...");
+    } catch {
+      setSubmitStatus("Opening email...");
+    }
+    window.location.href = emailUrl;
+    window.setTimeout(() => setSubmitStatus(""), 2600);
   };
 
   const updateField = (field, value) => {
@@ -92,7 +125,16 @@ export function ContactSection() {
         </div>
       </div>
 
-      <form className="quote-form" onSubmit={handleFormSubmit}>
+      <form
+        className="quote-form"
+        name={NETLIFY_FORMS.quote}
+        method="POST"
+        data-netlify="true"
+        onSubmit={handleFormSubmit}
+      >
+        <input type="hidden" name="form-name" value={NETLIFY_FORMS.quote} />
+        <input type="hidden" name="channel" value="contact" />
+        <input type="hidden" name="message" value={message} />
         <label>
           Name
           <input
@@ -112,6 +154,16 @@ export function ContactSection() {
             type="text"
             name="company"
             autoComplete="organization"
+          />
+        </label>
+        <label>
+          Email
+          <input
+            value={formState.email}
+            onChange={(event) => updateField("email", event.target.value)}
+            type="email"
+            name="email"
+            autoComplete="email"
           />
         </label>
         <label>
@@ -140,12 +192,16 @@ export function ContactSection() {
           Send on WhatsApp
           <FaWhatsapp size={20} />
         </button>
-        <a className="secondary-action form-email-action" href={emailUrl}>
+        <a
+          className="secondary-action form-email-action"
+          href={emailUrl}
+          onClick={handleEmailClick}
+        >
           Send by email
           <Mail size={18} />
         </a>
+        {submitStatus && <p className="form-status">{submitStatus}</p>}
       </form>
     </section>
   );
 }
-
