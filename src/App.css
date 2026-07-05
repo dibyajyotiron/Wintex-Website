@@ -34,6 +34,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 76px;
 }
 
 body {
@@ -97,6 +98,15 @@ img {
 
 .site-shell {
   min-height: 100vh;
+}
+
+.screen-stack {
+  overflow: clip;
+}
+
+.screen-stack > .section-band,
+.screen-stack > .metric-strip {
+  scroll-margin-top: 76px;
 }
 
 .site-header {
@@ -253,7 +263,48 @@ img {
 .section-band {
   margin: 0 auto;
   max-width: 1220px;
+  min-height: calc(100vh - 76px);
   padding: 96px clamp(18px, 4vw, 40px);
+  position: relative;
+}
+
+.screen-stack > .section-band {
+  opacity: 0.82;
+  transform: scale(0.992);
+  transition:
+    opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 760ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.screen-stack > .section-band.is-current-screen {
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1);
+}
+
+.screen-stack > .products {
+  opacity: 1;
+  transform: none;
+}
+
+.screen-stack > .product-page {
+  opacity: 1;
+  transform: none;
+}
+
+.screen-stack > .section-band::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(212, 15, 24, 0.2), transparent),
+    linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  content: "";
+  height: 1px;
+  left: clamp(18px, 4vw, 40px);
+  opacity: 0.72;
+  position: absolute;
+  right: clamp(18px, 4vw, 40px);
+  top: 0;
 }
 
 .hero {
@@ -360,120 +411,14 @@ button.secondary-action {
   cursor: pointer;
 }
 
-.scroll-cue {
-  align-items: center;
-  background: transparent;
-  border: 0;
-  border-radius: 50%;
-  color: var(--red);
-  display: flex;
-  height: 74px;
-  justify-content: center;
-  position: relative;
-  width: 74px;
-}
-
-.scroll-cue-row {
-  display: flex;
-  justify-content: center;
-  margin: 28px auto 10px;
-  min-height: 82px;
-}
-
-.scroll-cue-orbit {
-  animation: cue-orbit 4s linear infinite;
-  background:
-    conic-gradient(from 0deg, transparent 0 46%, rgba(212, 15, 24, 0.92), transparent 62% 100%),
-    radial-gradient(circle, transparent 58%, rgba(255, 255, 255, 0.14) 59%, transparent 62%);
-  border-radius: 50%;
-  inset: 0;
-  position: absolute;
-}
-
-.scroll-cue-core {
-  align-items: center;
-  animation: cue-float 1.9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-  background: rgba(12, 12, 13, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 50%;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
-  display: flex;
-  height: 48px;
-  justify-content: center;
-  position: relative;
-  width: 48px;
-  z-index: 2;
-}
-
-.scroll-cue-trail {
-  animation: cue-trail 1.9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-  background: linear-gradient(180deg, rgba(212, 15, 24, 0), rgba(212, 15, 24, 0.68), rgba(212, 15, 24, 0));
-  border-radius: 999px;
-  bottom: -24px;
-  height: 38px;
-  opacity: 0.75;
-  position: absolute;
-  width: 2px;
-}
-
-:root[data-theme="light"] .scroll-cue-orbit {
-  background:
-    conic-gradient(from 0deg, transparent 0 46%, rgba(212, 15, 24, 0.92), transparent 62% 100%),
-    radial-gradient(circle, transparent 58%, rgba(21, 21, 21, 0.12) 59%, transparent 62%);
-}
-
-:root[data-theme="light"] .scroll-cue-core {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(21, 21, 21, 0.12);
-  box-shadow: 0 18px 48px rgba(21, 21, 21, 0.12);
-}
-
-.scroll-cue:hover,
-.scroll-cue:focus-visible {
-  outline: none;
-  transform: translateY(2px) scale(1.02);
-}
-
-@keyframes cue-orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes cue-float {
-  0%,
-  100% {
-    transform: translateY(-3px);
-  }
-  50% {
-    transform: translateY(7px);
-  }
-}
-
-@keyframes cue-trail {
-  0%,
-  100% {
-    transform: scaleY(0.55) translateY(-4px);
-    opacity: 0.25;
-  }
-  50% {
-    transform: scaleY(1) translateY(6px);
-    opacity: 0.8;
-  }
-}
-
 .reveal {
-  opacity: 0;
-  transform: translateY(44px) scale(0.985);
-  transition:
-    opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  opacity: 1;
+  transform: none;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: none;
 }
 
 .metric-strip {
@@ -667,7 +612,6 @@ button.secondary-action {
 
 .about-company,
 .quality,
-.install-gallery,
 .contact {
   align-items: center;
   display: grid;
@@ -785,8 +729,7 @@ button.secondary-action {
   grid-template-columns: 0.88fr 1fr;
 }
 
-.quality-media,
-.gallery-card {
+.quality-media {
   border-radius: 8px;
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -825,20 +768,6 @@ button.secondary-action {
   flex: 0 0 auto;
 }
 
-.install-gallery {
-  grid-template-columns: 1.1fr 0.9fr 0.78fr;
-}
-
-.gallery-card img {
-  aspect-ratio: 0.9 / 1;
-  object-fit: cover;
-  width: 100%;
-}
-
-.gallery-large img {
-  aspect-ratio: 1.18 / 1;
-}
-
 .clients {
   padding-top: 80px;
 }
@@ -851,7 +780,10 @@ button.secondary-action {
 
 .logo-tile {
   align-items: center;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
   display: flex;
   height: 132px;
   justify-content: center;
@@ -859,10 +791,14 @@ button.secondary-action {
 }
 
 .logo-tile img {
-  filter: grayscale(1) brightness(1.08);
   max-height: 70px;
   object-fit: contain;
   width: 100%;
+}
+
+:root[data-theme="light"] .logo-tile {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 50px rgba(20, 24, 32, 0.1);
 }
 
 .contact {
@@ -1406,7 +1342,6 @@ button.secondary-action {
   .hero,
   .about-company,
   .quality,
-  .install-gallery,
   .contact,
   .split-heading,
   .product-page-hero,
@@ -1549,16 +1484,5 @@ button.secondary-action {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .scroll-cue-orbit,
-  .scroll-cue-core,
-  .scroll-cue-trail {
-    animation: none;
-  }
-
-  .scroll-cue-trail {
-    opacity: 0.45;
-    transform: none;
   }
 }

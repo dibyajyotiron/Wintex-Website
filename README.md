@@ -1,0 +1,213 @@
+# Wintex Website
+
+Modern single-page React/Vite website for Wintex Scales / Pionear Scales Industries.
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+The local Vite server usually runs at `http://localhost:5173`.
+
+## Production Build
+
+```bash
+npm run build
+```
+
+The compiled site is generated in `dist/`.
+
+## Netlify Deployment
+
+Netlify must build the Vite app before publishing it. This repo includes `netlify.toml` with:
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+- SPA fallback redirect: `/* -> /index.html`
+
+The previous Netlify log showed `No build steps found` and `Starting to deploy site from '/'`, which means Netlify was uploading the source folder instead of the built Vite output. The `netlify.toml` file fixes that.
+
+## Project Structure
+
+```text
+src/
+  App.jsx                         Main app coordinator
+  App.css                         Global styling and responsive design
+  components/
+    common/                       Reusable UI such as scroll cue and toast
+    layout/                       Header, footer, theme switch, WhatsApp widget
+    product/                      Product detail page
+    sections/                     Home page sections
+  config/
+    site.js                       Contact details, map links, catalogue path
+  data/
+    navigation.js                 Navbar and section order
+    products.js                   Product cards, details, images, spec PDFs
+    siteContent.js                About, services, clients, branches, page content
+  hooks/                          Theme, hash routing, active section logic
+```
+
+## Replacing Assets
+
+All public assets are served from `public/assets/`.
+
+### Logo Files
+
+Replace these files while keeping the same filenames:
+
+- Dark navbar/footer logo: `public/assets/wintex-logo-navbar.png`
+- Light-mode logo: `public/assets/wintex-logo-transparent.png`
+- General logo assets: `public/assets/wintex-logo.png`, `public/assets/wintex-logo-lockup.png`
+
+If you change filenames, update the references in:
+
+- `src/components/layout/Header.jsx`
+- `src/components/layout/Footer.jsx`
+
+### Catalogue PDF
+
+Replace:
+
+```text
+public/assets/wintex-product-catalogue.pdf
+```
+
+If you change the filename, update:
+
+```text
+src/config/site.js
+```
+
+Specifically update `cataloguePath`.
+
+### Product Specification PDFs
+
+Product spec PDFs live here:
+
+```text
+public/assets/specs/
+```
+
+Current product PDF paths are configured in:
+
+```text
+src/data/products.js
+```
+
+Each product has a `download` field, for example:
+
+```js
+download: "/assets/specs/pitless-weighbridge.pdf"
+```
+
+To replace a spec, keep the same filename. To use a new filename, update the matching product's `download` field.
+
+### Product Images
+
+Product images live in:
+
+```text
+public/assets/
+```
+
+Product image references are configured in:
+
+```text
+src/data/products.js
+```
+
+Each product has an `image` field, for example:
+
+```js
+image: "/assets/pitless-weighbridge.png"
+```
+
+### Section and Client Images
+
+Other section images and client logos are configured in:
+
+```text
+src/data/siteContent.js
+```
+
+Useful fields:
+
+- `clientLogos` for client logo tiles
+- `companyHighlights`, `services`, `proofPoints`, and `branchLocations` for page text
+
+### Circuit Board Background
+
+The main site background and quality section image use:
+
+```text
+public/assets/circuit-board.jpg
+```
+
+CSS background reference:
+
+```text
+src/App.css
+```
+
+Quality section reference:
+
+```text
+src/components/sections/QualitySection.jsx
+```
+
+## Updating Contact, WhatsApp, Email, or Map
+
+Update:
+
+```text
+src/config/site.js
+```
+
+Important fields:
+
+- `whatsappNumber`
+- `contactEmail`
+- `phoneNumbers`
+- `address`
+- `mapUrl`
+- `mapEmbedUrl`
+
+Use the WhatsApp number without `+`, spaces, or hyphens.
+
+## Adding or Editing Products
+
+Edit:
+
+```text
+src/data/products.js
+```
+
+Each product supports:
+
+- `slug`: used in URL hash, for example `#product/pitless-weighbridge`
+- `name`
+- `category`
+- `image`
+- `download`
+- `summary`
+- `specs`
+- `features`
+- `applications`
+
+After adding a product, run:
+
+```bash
+npm run build
+```
+
+## Navigation
+
+Navbar items and scroll-section order are defined in:
+
+```text
+src/data/navigation.js
+```
+
+Every navbar item should point to a real section `id` in the rendered page.
