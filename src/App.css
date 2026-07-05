@@ -769,6 +769,8 @@ button.secondary-action {
 }
 
 .clients {
+  min-height: auto;
+  padding-bottom: 56px;
   padding-top: 80px;
 }
 
@@ -803,6 +805,7 @@ button.secondary-action {
 
 .contact {
   grid-template-columns: 0.9fr 1fr;
+  padding-top: 64px;
 }
 
 .contact-copy address {
