@@ -16,6 +16,7 @@ import { products } from "./data/products";
 import { sectionOrder } from "./data/navigation";
 import { useActiveSection } from "./hooks/useActiveSection";
 import { useHashProductRoute } from "./hooks/useHashProductRoute";
+import { useSeoMeta } from "./hooks/useSeoMeta";
 import { useScreenStage } from "./hooks/useScreenStage";
 import { useTheme } from "./hooks/useTheme";
 
@@ -45,6 +46,7 @@ function App() {
   } = useHashProductRoute(products);
 
   const activeSection = useActiveSection(sectionOrder, Boolean(selectedProduct));
+  useSeoMeta(selectedProduct);
   useScreenStage(!selectedProduct);
 
   const showSoon = (channel) => {

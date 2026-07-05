@@ -1,5 +1,5 @@
 import { FileText } from "lucide-react";
-import { cataloguePath } from "../../config/site";
+import { cataloguePath, productPath } from "../../config/site";
 import { products } from "../../data/products";
 
 export function ProductsSection({ onOpenProduct }) {
@@ -24,11 +24,14 @@ export function ProductsSection({ onOpenProduct }) {
       </div>
       <div className="product-grid">
         {products.map((product) => (
-          <button
+          <a
             className="product-card"
             key={product.name}
-            type="button"
-            onClick={() => onOpenProduct(product)}
+            href={productPath(product.slug)}
+            onClick={(event) => {
+              event.preventDefault();
+              onOpenProduct(product);
+            }}
           >
             <img src={product.image} alt={product.name} />
             <div>
@@ -36,10 +39,9 @@ export function ProductsSection({ onOpenProduct }) {
               <h3>{product.name}</h3>
               <small>View specification</small>
             </div>
-          </button>
+          </a>
         ))}
       </div>
     </section>
   );
 }
-

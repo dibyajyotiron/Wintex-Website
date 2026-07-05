@@ -10,8 +10,15 @@ export function useTheme() {
   });
 
   useEffect(() => {
+    document.documentElement.classList.add("theme-transitioning");
     document.documentElement.dataset.theme = theme;
     window.localStorage.setItem(storageKey, theme);
+
+    const timeout = window.setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 520);
+
+    return () => window.clearTimeout(timeout);
   }, [theme]);
 
   const toggleTheme = () => {
@@ -20,4 +27,3 @@ export function useTheme() {
 
   return { theme, toggleTheme };
 }
-

@@ -2,11 +2,17 @@ export const products = [
   {
     slug: "electronic-weighbridges",
     name: "Electronic Weighbridges",
-    category: "Surface and pit-mounted vehicle weighing",
+    category: "Weighbridge",
     image: "/assets/pitless-weighbridge.png",
     download: "/assets/specs/pitless-weighbridge.pdf",
     summary:
       "Wintex electronic weighbridges support factories, farms, mills, dispatch yards, and bulk loading operations with modular platform structures, sealed loadcells, and micro-processor based digital indication.",
+    types: [
+      "Surface Mounted Weighbridge: modular above-ground steel platform, easier access for cleaning and service, suitable where civil pit work should be minimized.",
+      "Pit Mounted Weighbridge: platform assembled on civil foundation within a pit and usually flush with ground level, suitable where approach space is limited.",
+      "Pitless Weighbridge: above-ground installation with ramps, useful for faster installation and simpler maintenance access.",
+      "Modular Steel Weighbridge: built using steel fabricated modules, with 4, 6, 8 or 10 loadcells depending on platform length.",
+    ],
     specs: [
       "Surface-mounted and pit-mounted platform structure options",
       "Surface-mounted platforms use modular steel fabrication with up to two modules per weighbridge",
@@ -115,39 +121,13 @@ export const products = [
       "Multiple weighing modes for faster operation",
       "Designed for quick, accurate results",
       "Compact footprint for retail, packing, and dispatch counters",
+      "Pole display variant available for customer-facing counters",
     ],
     applications: [
       "Retail counters",
       "Packing desks",
       "Food processing counters",
       "Dispatch desks",
-    ],
-  },
-  {
-    slug: "pole-display-scale",
-    name: "Pole Display Scale",
-    category: "Customer-facing counters",
-    image: "/assets/table-top-pole.jpg",
-    download: "/assets/specs/pole-display-scale.pdf",
-    summary:
-      "A table top scale variant with a raised display, designed for counters where the customer or operator needs clear readout visibility.",
-    specs: [
-      "Customer-facing pole display",
-      "Counter-friendly table top footprint",
-      "Digital weighing platform",
-      "Clear readout visibility for billing and packing workflows",
-    ],
-    features: [
-      "Raised display for easier viewing",
-      "Stable counter base",
-      "Fast operator workflow",
-      "Useful for billing, wholesale, and retail counters",
-    ],
-    applications: [
-      "Grocery counters",
-      "Wholesale markets",
-      "Packing stations",
-      "Billing desks",
     ],
   },
   {
@@ -273,4 +253,3 @@ export const products = [
     ],
   },
 ];
-

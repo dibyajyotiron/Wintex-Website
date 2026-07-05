@@ -49,6 +49,16 @@ export function ProductPage({ product, onBack, onEnquire }) {
         </div>
       </div>
       <div className="product-info-grid">
+        {product.types && (
+          <article>
+            <strong>Types of weighbridge</strong>
+            <ul>
+              {product.types.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+        )}
         <article>
           <strong>Key specifications</strong>
           <ul>
@@ -77,4 +87,3 @@ export function ProductPage({ product, onBack, onEnquire }) {
     </section>
   );
 }
-

@@ -20,3 +20,20 @@ export const address =
 
 export const cataloguePath = "/assets/wintex-product-catalogue.pdf";
 
+export const siteUrl = "https://www.wintex-scales.com";
+
+export const siteName = "Wintex Scales";
+
+export const organizationName = "Pionear Scales Industries";
+
+export const defaultSeoDescription =
+  "Wintex Scales manufactures electronic weighing scales, weighbridges, precision scales, platform scales, table top scales, jewellery scales, and digital weighing systems in Howrah, West Bengal.";
+
+export function absoluteUrl(path = "/") {
+  if (path.startsWith("http")) return path;
+  return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+export function productPath(slug) {
+  return `/products/${slug}`;
+}

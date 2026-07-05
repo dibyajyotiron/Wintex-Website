@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
+import { productPath } from "../config/site";
+
+function productFromLocation(products) {
+  const pathMatch = window.location.pathname.match(/^\/products\/([^/]+)\/?$/);
+  const hashMatch = window.location.hash.match(/^#product\/(.+)$/);
+  const slug = pathMatch?.[1] ?? hashMatch?.[1];
+
+  return slug ? products.find((item) => item.slug === slug) : null;
+}
 
 export function useHashProductRoute(products) {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const applyRoute = () => {
-      const match = window.location.hash.match(/^#product\/(.+)$/);
-      const product = match
-        ? products.find((item) => item.slug === match[1])
-        : null;
+      const product = productFromLocation(products);
 
       setSelectedProduct(product ?? null);
 
@@ -19,19 +25,24 @@ export function useHashProductRoute(products) {
 
     applyRoute();
     window.addEventListener("hashchange", applyRoute);
+    window.addEventListener("popstate", applyRoute);
 
-    return () => window.removeEventListener("hashchange", applyRoute);
+    return () => {
+      window.removeEventListener("hashchange", applyRoute);
+      window.removeEventListener("popstate", applyRoute);
+    };
   }, [products]);
 
   const openProduct = (product) => {
     setSelectedProduct(product);
-    window.location.hash = `product/${product.slug}`;
+    window.history.pushState(null, "", productPath(product.slug));
+    window.dispatchEvent(new PopStateEvent("popstate"));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const closeProduct = () => {
     setSelectedProduct(null);
-    window.history.replaceState(null, "", "#products");
+    window.history.pushState(null, "", "/#products");
     window.setTimeout(() => {
       document
         .getElementById("products")
@@ -41,7 +52,13 @@ export function useHashProductRoute(products) {
 
   const clearProductAndGoToContact = () => {
     setSelectedProduct(null);
-    window.location.hash = "contact";
+    window.history.pushState(null, "", "/#contact");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.setTimeout(() => {
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
   };
 
   return {

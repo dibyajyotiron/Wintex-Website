@@ -64,17 +64,6 @@ const products = [
     applications: ['Retail counters', 'Food processing', 'Laboratories', 'Dispatch desks'],
   },
   {
-    name: 'Pole Display Scale',
-    slug: 'pole-display-scale',
-    category: 'Fast moving counters',
-    capacity: '6 kg to 100 kg options',
-    accuracy: 'Clear customer-facing readout',
-    image: 'table-top-pole.jpg',
-    summary: 'A customer-facing weighing system for counters and wholesale environments where visibility matters.',
-    features: ['Raised display', 'Stable counter base', 'Clear readout', 'Billing-friendly workflow'],
-    applications: ['Grocery counters', 'Wholesale markets', 'Packing stations', 'Billing desks'],
-  },
-  {
     name: 'Micro Mini Scale',
     slug: 'micro-mini-scale',
     category: 'Compact precision work',

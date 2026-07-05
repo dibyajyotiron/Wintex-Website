@@ -19,6 +19,14 @@ npm run build
 
 The compiled site is generated in `dist/`.
 
+The production build also generates static SEO shells for every product URL under:
+
+```text
+dist/products/<product-slug>/index.html
+```
+
+These files let crawlers and AI indexing systems see product-specific titles, descriptions, canonical URLs, Open Graph tags, and JSON-LD before the React app hydrates.
+
 ## Netlify Deployment
 
 Netlify must build the Vite app before publishing it. This repo includes `netlify.toml` with:
@@ -201,6 +209,48 @@ After adding a product, run:
 ```bash
 npm run build
 ```
+
+## SEO and AI Search Files
+
+Search metadata is configured in:
+
+```text
+src/data/seo.js
+src/hooks/useSeoMeta.js
+```
+
+Product SEO pages use clean URLs such as:
+
+```text
+https://www.wintex-scales.com/products/electronic-weighbridges
+```
+
+Static product SEO shells are generated automatically by:
+
+```text
+scripts/postbuild-seo.mjs
+```
+
+If you add, remove, or rename a product slug in `src/data/products.js`, also update:
+
+```text
+public/sitemap.xml
+public/llms.txt
+```
+
+Crawler files:
+
+- `public/sitemap.xml` lists the home page and product detail URLs for Google Search Console submission.
+- `public/robots.txt` allows crawlers and points them to the sitemap.
+- `public/llms.txt` gives AI search/indexing systems a plain-text summary of the company, products, and key URLs.
+
+The production domain is configured in:
+
+```text
+src/config/site.js
+```
+
+Update `siteUrl` if the domain changes.
 
 ## Navigation
 
