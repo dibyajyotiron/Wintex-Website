@@ -41,16 +41,16 @@ const products = [
     applications: ['Factory dispatch', 'Mines and quarries', 'Logistics yards', 'Agricultural procurement'],
   },
   {
-    name: 'Platform Scale',
-    slug: 'platform-scale',
-    category: 'Industrial floor weighing',
-    capacity: '50 kg to 5 ton platform sizes',
+    name: 'Heavy Duty Platform Scale',
+    slug: 'heavy-duty-platform-scale',
+    category: 'Industrial floor and bulky item weighing',
+    capacity: '50 kg to 1000 kg platform sizes',
     accuracy: 'Industrial-grade stability for daily operations',
-    image: 'platform-scale.jpg',
+    image: 'heavy-duty-platform-scale.png',
     summary:
-      'A heavy-duty floor weighing solution for material movement, packing, manufacturing, and warehouse operations.',
-    features: ['Rugged platform build', 'Anti-skid surface', 'Configurable size', 'Easy calibration'],
-    applications: ['Warehouse loading', 'Manufacturing', 'Packing lines', 'Bulk material handling'],
+      'A heavy-duty platform weighing solution for industrial floor weighing, bulky item movement, factories, warehouses, loading docks, and dispatch operations.',
+    features: ['Rugged platform build', 'Durable steel fabrication', 'Bulky item weighing', 'Easy maintenance'],
+    applications: ['Factories', 'Warehouses', 'Loading docks', 'Shipping and receiving departments'],
   },
   {
     name: 'Table Top Scale',
@@ -270,7 +270,7 @@ function makeCatalogue() {
     doc.addPage();
     pageFrame(doc, 'Weighbridge & Industrial Systems', 3);
     cardImage(doc, 'pitless-weighbridge.png', 36, 126, 524, 274);
-    doc.font('Helvetica-Bold').fontSize(34).fillColor(brand.ink).text('Fully electronic weighbridge systems.', 36, 430, { width: 420 });
+    doc.font('Helvetica-Bold').fontSize(34).fillColor(brand.ink).text('Fully integrated weighbridge systems.', 36, 430, { width: 420 });
     doc.font('Helvetica').fontSize(11).fillColor(brand.muted).text(products[0].summary, 36, 512, { width: 500, lineGap: 4 });
     [
       ['Capacity', '30t, 40t, 50t, 60t, 80t, 100t and custom site configurations'],

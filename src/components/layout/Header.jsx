@@ -4,7 +4,7 @@ import { OptimizedImage } from "../common/OptimizedImage";
 import { navItems } from "../../data/navigation";
 import { ThemeSwitch } from "./ThemeSwitch";
 
-export function Header({ activeSection, theme, onToggleTheme }) {
+export function Header({ activeSection, theme, onToggleTheme, onNavigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const logo =
     theme === "dark"
@@ -19,7 +19,11 @@ export function Header({ activeSection, theme, onToggleTheme }) {
         className="brand"
         href="#top"
         aria-label="Wintex Scales home"
-        onClick={() => setMenuOpen(false)}
+        onClick={(event) => {
+          event.preventDefault();
+          setMenuOpen(false);
+          onNavigate("top");
+        }}
       >
         <OptimizedImage
           src={logo}
@@ -41,7 +45,11 @@ export function Header({ activeSection, theme, onToggleTheme }) {
             key={item.href}
             className={activeSection === item.href.slice(1) ? "active" : ""}
             href={item.href}
-            onClick={() => setMenuOpen(false)}
+            onClick={(event) => {
+              event.preventDefault();
+              setMenuOpen(false);
+              onNavigate(item.href.slice(1));
+            }}
           >
             {item.label}
           </a>

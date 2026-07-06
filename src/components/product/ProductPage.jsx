@@ -58,6 +58,26 @@ export function ProductPage({ product, onBack, onEnquire }) {
           />
         </div>
       </div>
+      {product.typeGallery && (
+        <div className="weighbridge-type-gallery" aria-label="Weighbridge types">
+          {product.typeGallery.map((type) => (
+            <article key={type.title}>
+              <OptimizedImage
+                src={type.image}
+                alt={type.title}
+                width={type.imageWidth}
+                height={type.imageHeight}
+                widths={[360, 540, 720]}
+                sizes="(max-width: 680px) calc(100vw - 68px), (max-width: 980px) calc((100vw - 84px) / 2), 280px"
+              />
+              <div>
+                <strong>{type.title}</strong>
+                <p>{type.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
       <div className="product-info-grid">
         {product.types && (
           <article>

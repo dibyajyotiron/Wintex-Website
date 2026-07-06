@@ -43,6 +43,7 @@ function App() {
     openProduct,
     closeProduct,
     clearProductAndGoToContact,
+    navigateToSection,
   } = useHashProductRoute(products);
 
   const activeSection = useActiveSection(sectionOrder, Boolean(selectedProduct));
@@ -60,6 +61,7 @@ function App() {
         activeSection={activeSection}
         theme={theme}
         onToggleTheme={toggleTheme}
+        onNavigate={navigateToSection}
       />
 
       <main id="top" className="screen-stack">

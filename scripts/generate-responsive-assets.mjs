@@ -12,9 +12,16 @@ const productWidths = [360, 540, 640, 720, 960, 1280];
 const logoWidths = [180, 360, 720];
 
 const imageJobs = [
+  { file: "hero-weighbridge-shared.jpeg", widths: [640, 960, 1280] },
   { file: "pitless-weighbridge.png", widths: productWidths },
-  { file: "platform-scale.jpg", widths: productWidths },
-  { file: "platform-electronic-weighbridge.jpg", widths: productWidths },
+  { file: "weighbridge-main.png", widths: productWidths },
+  { file: "unmanned-weighbridge-system.png", widths: productWidths },
+  { file: "power-lightning-protection-device.png", widths: productWidths },
+  { file: "heavy-duty-platform-scale.png", widths: productWidths },
+  { file: "weighbridge-type-pit.png", widths: [360, 540, 720] },
+  { file: "weighbridge-type-pitless.png", widths: [360, 540, 720] },
+  { file: "weighbridge-type-modular.png", widths: [360, 540, 720] },
+  { file: "weighbridge-type-semi-rcc.png", widths: [360, 540, 720] },
   { file: "table-top-medium.jpg", widths: productWidths },
   { file: "chicken-scale.jpg", widths: productWidths },
   { file: "jewellery-scale.jpg", widths: productWidths },

@@ -27,6 +27,15 @@ dist/products/<product-slug>/index.html
 
 These files let crawlers and AI indexing systems see product-specific titles, descriptions, canonical URLs, Open Graph tags, and JSON-LD before the React app hydrates.
 
+The production build also generates AMP alternates for the home page and every product page:
+
+```text
+dist/amp/index.html
+dist/amp/products/<product-slug>/index.html
+```
+
+Canonical pages include `<link rel="amphtml" ...>` so Google can discover the AMP versions, and AMP pages include `<link rel="canonical" ...>` back to the primary React pages.
+
 ## Netlify Deployment
 
 Netlify must build the Vite app before publishing it. This repo includes `netlify.toml` with:
@@ -252,12 +261,51 @@ Static product SEO shells are generated automatically by:
 scripts/postbuild-seo.mjs
 ```
 
+The same postbuild script also generates AMP pages:
+
+```text
+https://www.wintex-scales.com/amp/
+https://www.wintex-scales.com/amp/products/<product-slug>/
+```
+
+AMP pages are intentionally separate from the React SPA because valid AMP pages cannot include normal custom JavaScript. They are static, fast-loading alternatives built from the same product data in:
+
+```text
+src/data/products.js
+```
+
+Each AMP page includes:
+
+- Valid AMP document markup: `<html amp>`, AMP runtime, AMP boilerplate, and `amp-custom` CSS.
+- Canonical link back to the main page.
+- `amp-img` images with explicit dimensions.
+- Product or organization JSON-LD.
+- Product summary, specs, features, and applications.
+
+Canonical pages include `rel="amphtml"` links:
+
+```text
+/                 -> /amp/
+/products/<slug>  -> /amp/products/<slug>/
+```
+
+Validate AMP output after layout or SEO changes:
+
+```bash
+npm run build
+npx --yes amphtml-validator dist/amp/index.html dist/amp/products/*/index.html
+```
+
+All AMP pages should return `PASS`. If an AMP page fails validation, Google may ignore the AMP alternate.
+
 If you add, remove, or rename a product slug in `src/data/products.js`, also update:
 
 ```text
 public/sitemap.xml
 public/llms.txt
 ```
+
+Then run `npm run build` and confirm the generated canonical product pages and AMP product pages match the current product list.
 
 Crawler files:
 

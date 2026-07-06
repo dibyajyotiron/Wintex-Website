@@ -1,4 +1,5 @@
 import { ArrowRight, BadgeCheck, Download, Phone } from "lucide-react";
+import { OptimizedImage } from "../common/OptimizedImage";
 import { cataloguePath, phoneNumbers } from "../../config/site";
 
 export function HeroSection() {
@@ -30,7 +31,19 @@ export function HeroSection() {
           </a>
         </div>
       </div>
+      <div className="hero-visual" aria-hidden="true">
+        <OptimizedImage
+          className="hero-image"
+          src="/assets/hero-weighbridge-shared.jpeg"
+          alt=""
+          width={968}
+          height={811}
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 980px) calc(100vw - 36px), 620px"
+          loading="eager"
+          fetchPriority="high"
+        />
+      </div>
     </section>
   );
 }
-

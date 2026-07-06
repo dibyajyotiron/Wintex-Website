@@ -36,10 +36,11 @@ const region = "West Bengal";
 const country = "IN";
 
 export function productSeo(product) {
-  const isWeighbridge = /weighbridge/i.test(`${product.name} ${product.category}`);
-  const title = isWeighbridge
-    ? `${product.name} | Pit Type, Pitless & Surface Mounted Weighbridge`
-    : `${product.name} | Wintex Electronic Weighing Scale`;
+  const title = product.types
+    ? `${product.name} | Pit Type, Pitless, Modular & Semi RCC Weighbridge`
+    : /weighbridge/i.test(product.name)
+      ? `${product.name} | Automated Weighbridge Solution`
+      : `${product.name} | Wintex Electronic Weighing System`;
 
   return {
     title: `${title} | Wintex Scales`,
@@ -188,4 +189,3 @@ export function breadcrumbJsonLd(product) {
     itemListElement: items,
   };
 }
-

@@ -61,11 +61,22 @@ export function useHashProductRoute(products) {
     }, 0);
   };
 
+  const navigateToSection = (sectionId) => {
+    setSelectedProduct(null);
+    window.history.pushState(null, "", `/#${sectionId}`);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.setTimeout(() => {
+      document
+        .getElementById(sectionId)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  };
+
   return {
     selectedProduct,
     openProduct,
     closeProduct,
     clearProductAndGoToContact,
+    navigateToSection,
   };
 }
-
