@@ -33,7 +33,7 @@ const imageJobs = [
   { file: "exide-logo.jpg", widths: logoWidths },
   { file: "jindal-logo.jpg", widths: logoWidths },
   { file: "client-mark.png", widths: logoWidths },
-  { file: "wintex-logo-navbar.png", widths: logoWidths },
+  { file: "wintex-logo-dark.png", widths: logoWidths },
   { file: "wintex-logo-transparent.png", widths: logoWidths },
 ];
 
@@ -68,7 +68,7 @@ async function generateResponsiveImages() {
 }
 
 async function makeIcon(size, output, { maskable = false } = {}) {
-  const logo = await sharp(path.join(assetDir, "wintex-logo-navbar.png"))
+  const logo = await sharp(path.join(assetDir, "wintex-logo-dark.png"))
     .resize({
       width: Math.round(size * (maskable ? 0.62 : 0.78)),
       height: Math.round(size * (maskable ? 0.62 : 0.78)),

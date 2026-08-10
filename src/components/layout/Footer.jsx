@@ -4,10 +4,12 @@ import { OptimizedImage } from "../common/OptimizedImage";
 export function Footer({ theme, onComingSoon }) {
   const logo =
     theme === "dark"
-      ? "/assets/wintex-logo-navbar.png"
+      ? "/assets/wintex-logo-dark.png"
       : "/assets/wintex-logo-transparent.png";
   const logoDimensions =
-    theme === "dark" ? { width: 977, height: 176 } : { width: 977, height: 243 };
+    theme === "dark"
+      ? { width: 977, height: 176 }
+      : { width: 977, height: 243 };
 
   return (
     <footer className="footer">

@@ -95,7 +95,7 @@ All public assets are served from `public/assets/`.
 
 Replace these files while keeping the same filenames:
 
-- Dark navbar/footer logo: `public/assets/wintex-logo-navbar.png`
+- Dark navbar/footer logo: `public/assets/wintex-logo-dark.png`
 - Light-mode logo: `public/assets/wintex-logo-transparent.png`
 - General logo assets: `public/assets/wintex-logo.png`, `public/assets/wintex-logo-lockup.png`
 
@@ -137,7 +137,7 @@ src/data/products.js
 Each product has a `download` field, for example:
 
 ```js
-download: "/assets/specs/pitless-weighbridge.pdf"
+download: "/assets/specs/pitless-weighbridge.pdf";
 ```
 
 To replace a spec, keep the same filename. To use a new filename, update the matching product's `download` field.
@@ -159,7 +159,7 @@ src/data/products.js
 Each product has an `image` field, for example:
 
 ```js
-image: "/assets/pitless-weighbridge.png"
+image: "/assets/pitless-weighbridge.png";
 ```
 
 ### Section and Client Images

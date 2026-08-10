@@ -105,7 +105,7 @@ async function generateLogos() {
   const fullLogo = path.join(assetDir, 'wintex-logo.png');
   const transparentLogo = path.join(assetDir, 'wintex-logo-transparent.png');
   const lockupLogo = path.join(assetDir, 'wintex-logo-lockup.png');
-  const navbarLogo = path.join(assetDir, 'wintex-logo-navbar.png');
+  const navbarLogo = path.join(assetDir, 'wintex-logo-dark.png');
 
   const { data, info } = await sharp(fullLogo).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 
@@ -167,7 +167,7 @@ function cardImage(doc, file, x, y, w, h) {
 function pageFrame(doc, title, page) {
   doc.rect(0, 0, 596, 842).fill('#ffffff');
   doc.rect(0, 0, 596, 92).fill(brand.black);
-  doc.image(imagePath('wintex-logo-navbar.png'), 36, 23, { width: 190 });
+  doc.image(imagePath('wintex-logo-dark.png'), 36, 23, { width: 190 });
   doc.font('Helvetica-Bold').fontSize(10).fillColor('#ffffff').text(title, 380, 30, { width: 170, align: 'right' });
   doc.font('Helvetica').fontSize(8).fillColor('#a8adb6').text(`Page ${page}`, 380, 50, { width: 170, align: 'right' });
   doc.rect(0, 88, 596, 4).fill(brand.red);
@@ -244,7 +244,7 @@ function makeCatalogue() {
     doc.rect(0, 0, 596, 842).fill(brand.black);
     doc.image(imagePath('circuit-board.jpg'), 0, 0, { width: 596, height: 842, fit: [596, 842] });
     doc.rect(0, 0, 596, 842).fillOpacity(0.78).fill(brand.black).fillOpacity(1);
-    doc.image(imagePath('wintex-logo-navbar.png'), 42, 46, { width: 250 });
+    doc.image(imagePath('wintex-logo-dark.png'), 42, 46, { width: 250 });
     doc.font('Helvetica-Bold').fontSize(52).fillColor('#ffffff').text('Product Catalogue', 42, 170, { width: 430 });
     doc.font('Helvetica').fontSize(15).fillColor('#d7d9dd').text('Electronic weighing systems, weighbridges, platform scales, table-top scales, and precision instruments.', 46, 300, { width: 300, lineGap: 6 });
     cardImage(doc, 'wintex-product-render-1.jpg', 376, 88, 168, 246);
