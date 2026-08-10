@@ -1,9 +1,9 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
-import './App.css';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./App.css";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
@@ -13,4 +13,14 @@ if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/sw.js").catch(() => {});
   });
+}
+
+const loadBackground = () => {
+  document.body.classList.add("background-ready");
+};
+
+if ("requestIdleCallback" in window) {
+  requestIdleCallback(loadBackground, { timeout: 1500 });
+} else {
+  setTimeout(loadBackground, 800);
 }

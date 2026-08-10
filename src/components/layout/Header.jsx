@@ -10,10 +10,7 @@ export function Header({ activeSection, theme, onToggleTheme, onNavigate }) {
     theme === "dark"
       ? "/assets/wintex-logo-dark.png"
       : "/assets/wintex-logo-transparent.png";
-  const logoDimensions =
-    theme === "dark"
-      ? { width: 977, height: 176 }
-      : { width: 977, height: 243 };
+  const logoDimensions = { width: 977, height: 243 };
 
   return (
     <header className="site-header">
@@ -35,7 +32,6 @@ export function Header({ activeSection, theme, onToggleTheme, onNavigate }) {
           widths={[180, 360, 720]}
           sizes="232px"
           loading="eager"
-          fetchPriority="high"
         />
       </a>
       <nav

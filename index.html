@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en-IN">
   <head>
+    <script>
+      (() => {
+        const saved = localStorage.getItem("wintex-theme");
+        document.documentElement.dataset.theme =
+          saved === "dark" || saved === "light" ? saved : "light";
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -21,7 +28,12 @@
     <link rel="amphtml" href="https://www.wintex-scales.com/amp/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/icons/icon-192.png"
+    />
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Wintex Scales" />
@@ -34,7 +46,10 @@
       content="Weighbridges, weighing scales, precision scales, platform scales, table top scales, jewellery scales, and digital weighing systems from Pionear Scales Industries."
     />
     <meta property="og:url" content="https://www.wintex-scales.com/" />
-    <meta property="og:image" content="https://www.wintex-scales.com/assets/wintex-logo-transparent.png" />
+    <meta
+      property="og:image"
+      content="https://www.wintex-scales.com/assets/wintex-logo-transparent.png"
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -44,8 +59,13 @@
       name="twitter:description"
       content="Weighbridges, weighing scales, precision scales, platform scales, table top scales, jewellery scales, and digital weighing systems."
     />
-    <meta name="twitter:image" content="https://www.wintex-scales.com/assets/wintex-logo-transparent.png" />
-    <title>Wintex Scales | Weighbridge, Weighing Scale & Precision Scale Manufacturer</title>
+    <meta
+      name="twitter:image"
+      content="https://www.wintex-scales.com/assets/wintex-logo-transparent.png"
+    />
+    <title>
+      Wintex Scales | Weighbridge, Weighing Scale & Precision Scale Manufacturer
+    </title>
   </head>
   <body>
     <form name="wintex_quote" method="POST" data-netlify="true" hidden>
