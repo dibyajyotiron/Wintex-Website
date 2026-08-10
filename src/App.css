@@ -753,17 +753,25 @@ button.secondary-action {
 
 .product-card img {
   aspect-ratio: 1.1 / 1;
-  background: #111;
+  background: transparent;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
 .product-card .optimized-picture {
   aspect-ratio: 1.1 / 1;
-  background: #111;
+  background:
+    radial-gradient(circle at 26% 18%, rgba(212, 15, 24, 0.22), transparent 38%),
+    rgba(255, 255, 255, 0.055);
   overflow: hidden;
   width: 100%;
+}
+
+:root[data-theme="light"] .product-card .optimized-picture {
+  background:
+    radial-gradient(circle at 26% 18%, rgba(212, 15, 24, 0.13), transparent 38%),
+    rgba(255, 255, 255, 0.86);
 }
 
 .product-card div {

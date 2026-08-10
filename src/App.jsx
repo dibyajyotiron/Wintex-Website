@@ -46,13 +46,27 @@ function App() {
     navigateToSection,
   } = useHashProductRoute(products);
 
-  const activeSection = useActiveSection(sectionOrder, Boolean(selectedProduct));
+  const activeSection = useActiveSection(
+    sectionOrder,
+    Boolean(selectedProduct),
+  );
   useSeoMeta(selectedProduct);
   useScreenStage(!selectedProduct);
 
   const showSoon = (channel) => {
-    setToast(`${channel} is coming soon`);
-    window.setTimeout(() => setToast(""), 2200);
+    const urls = {
+      Facebook: "https://www.facebook.com/pionearscalesindustries",
+      Instagram: "https://www.instagram.com/pionearscalesindustries",
+      YouTube: "https://www.youtube.com/@pionearscalesindustries",
+      X: "https://x.com/pionearscale",
+    };
+
+    const targetUrl = urls[channel];
+    if (targetUrl) {
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    } else {
+      setToast(`${channel || "This channel"} is coming soon`);
+    }
   };
 
   return (

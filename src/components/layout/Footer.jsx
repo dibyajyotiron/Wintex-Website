@@ -1,4 +1,9 @@
-import { FacebookIcon, InstagramIcon, YouTubeIcon } from "../common/BrandIcons";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  XIcon,
+  YouTubeIcon,
+} from "../common/BrandIcons";
 import { OptimizedImage } from "../common/OptimizedImage";
 
 export function Footer({ theme, onComingSoon }) {
@@ -42,6 +47,13 @@ export function Footer({ theme, onComingSoon }) {
           onClick={() => onComingSoon("YouTube")}
         >
           <YouTubeIcon />
+        </button>
+        <button
+          type="button"
+          aria-label="X is coming soon"
+          onClick={() => onComingSoon("X")}
+        >
+          <XIcon />
         </button>
       </div>
     </footer>
