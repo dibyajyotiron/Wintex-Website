@@ -5,19 +5,26 @@
     "dev": "vite --host 0.0.0.0",
     "prebuild": "node scripts/generate-responsive-assets.mjs",
     "build": "vite build && node scripts/postbuild-seo.mjs",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "check:v2": "node scripts/check-v2.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
+    "clsx": "^2.1.1",
     "lucide-react": "latest",
+    "motion": "^13.4.4",
+    "next-themes": "^0.4.6",
     "react": "latest",
     "react-dom": "latest",
+    "tailwind-merge": "^3.7.0",
     "vite": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "pdfkit": "^0.19.1",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.3"
   }
 }

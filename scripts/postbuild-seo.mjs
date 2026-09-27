@@ -71,7 +71,7 @@ function organizationJsonLd() {
       postalCode: "711113",
       addressCountry: "IN",
     },
-    areaServed: ["India", "West Bengal", "Kolkata", "Howrah", "Jaipur", "Delhi", "Mumbai", "Siliguri"],
+    areaServed: ["India", "West Bengal", "Kolkata", "Howrah", "Jaipur", "Delhi", "Mumbai", "Siliguri", "Raiganj"],
     description: defaultSeoDescription,
     makesOffer: products.map((product) => ({
       "@type": "Offer",
@@ -331,8 +331,8 @@ function homeAmpHtml() {
         <h2>Products</h2>
         <div class="grid">
           ${products
-            .map(
-              (product) => `
+      .map(
+        (product) => `
                 <a class="product-card" href="${absoluteUrl(`/products/${product.slug}`)}">
                   ${ampImage(absoluteUrl(product.image), product.name, product.imageWidth, product.imageHeight)}
                   <div>
@@ -341,8 +341,8 @@ function homeAmpHtml() {
                     <p>${escapeHtml(product.summary)}</p>
                   </div>
                 </a>`,
-            )
-            .join("")}
+      )
+      .join("")}
         </div>
       </section>
     `;
@@ -375,11 +375,10 @@ function productAmpHtml(product) {
           ${ampImage(absoluteUrl(product.image), product.name, product.imageWidth, product.imageHeight)}
         </div>
       </section>
-      ${
-        product.types
-          ? `<section class="section"><h2>Types of weighbridge</h2><ul>${listItems(product.types)}</ul></section>`
-          : ""
-      }
+      ${product.types
+      ? `<section class="section"><h2>Types of weighbridge</h2><ul>${listItems(product.types)}</ul></section>`
+      : ""
+    }
       <section class="section">
         <div class="grid">
           <article class="card"><h3>Key specifications</h3><ul>${listItems(product.specs)}</ul></article>
@@ -448,3 +447,20 @@ for (const product of products) {
 }
 
 console.log(`Generated static SEO metadata and AMP alternates for the home page and ${products.length} product URLs.`);
+
+// Parallel design preview: keep the live URLs canonical and serve every V2 deep link
+// as a real HTML file, including Netlify's existing form declarations.
+const v2Routes = [
+  ["", baseHtml],
+  ["enquiry", setTitle(baseHtml, "Discuss your requirement | Wintex Scales")],
+  ["contact", setTitle(baseHtml, "Contact | Wintex Scales")],
+  ...products.map((product) => [`products/${product.slug}`, productHtml(baseHtml, product)]),
+];
+for (const [route, source] of v2Routes) {
+  const outputDir = path.join(dist, "v2", route);
+  await mkdir(outputDir, { recursive: true });
+  const html = setMeta(source, "name", "robots", "noindex, follow")
+    .replace(/<link\s+rel="amphtml"[^>]*>/i, "");
+  await writeFile(path.join(outputDir, "index.html"), html);
+}
+console.log(`Generated ${v2Routes.length} isolated V2 preview routes.`);

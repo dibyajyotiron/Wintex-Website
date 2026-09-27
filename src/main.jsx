@@ -1,7 +1,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import "./App.css";
+
+// Load each experience and its styles independently so /v2 cannot restyle production pages.
+const isV2 = /^\/v2(?:\/|$)/.test(window.location.pathname);
+const { default: App } = isV2
+  ? await import("./v2/V2App.jsx")
+  : await import("./App.jsx");
+if (!isV2) await import("./App.css");
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

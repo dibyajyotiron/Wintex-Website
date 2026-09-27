@@ -56,6 +56,7 @@ export const branchLocations = [
   "Delhi",
   "Ambala",
   "Mumbai",
+  "Raiganj",
   "Siliguri",
   "Tata Nagar",
   "Bhutan",

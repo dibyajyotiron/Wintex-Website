@@ -12,6 +12,7 @@ const productWidths = [360, 540, 640, 720, 960, 1280];
 const logoWidths = [180, 360, 720];
 
 const imageJobs = [
+  { file: "calibration-technician.jpg", widths: [640, 960] },
   { file: "hero-weighbridge-shared.jpeg", widths: [640, 960, 1280] },
   { file: "pitless-weighbridge.png", widths: productWidths },
   { file: "weighbridge-main.png", widths: productWidths },

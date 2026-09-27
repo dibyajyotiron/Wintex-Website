@@ -79,7 +79,7 @@ export function organizationJsonLd() {
       postalCode: "711113",
       addressCountry: country,
     },
-    areaServed: ["India", "West Bengal", "Kolkata", "Howrah", "Jaipur", "Delhi", "Mumbai", "Siliguri"],
+    areaServed: ["India", "West Bengal", "Kolkata", "Howrah", "Jaipur", "Delhi", "Mumbai", "Raiganj", "Siliguri"],
     description: defaultSeoDescription,
     makesOffer: products.map((product) => ({
       "@type": "Offer",

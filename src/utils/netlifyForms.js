@@ -3,7 +3,7 @@ export const NETLIFY_FORMS = {
   whatsappInterest: "whatsapp_interest",
 };
 
-export async function submitNetlifyForm(formName, fields) {
+export async function submitNetlifyForm(formName, fields, { keepalive = false } = {}) {
   const payload = new URLSearchParams({
     "form-name": formName,
     submitted_at: new Date().toISOString(),
@@ -17,6 +17,7 @@ export async function submitNetlifyForm(formName, fields) {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: payload.toString(),
+    keepalive,
   });
 
   if (!response.ok) {

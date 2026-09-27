@@ -291,7 +291,7 @@ function makeCatalogue() {
     const blocks = [
       ['Quality control', 'Each system is checked through disciplined production and testing processes aligned with accepted weighing standards.'],
       ['R&D led products', 'A dedicated R&D approach helps develop rugged mechanical structures and improved electronic systems.'],
-      ['Service network', 'Factory and branch support across Kolkata, Jaipur, Mumbai, Delhi, Siliguri, Tata Nagar, Bhutan and Bangladesh.'],
+      ['Service network', 'Factory and branch support across Kolkata, Jaipur, Mumbai, Delhi, Raiganj, Siliguri, Tata Nagar, Bhutan and Bangladesh.'],
       ['Customer fit', 'Products are selected and configured around customer capacity, workflow, accuracy and site needs.'],
     ];
     blocks.forEach(([title, text], index) => {

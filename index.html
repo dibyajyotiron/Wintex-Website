@@ -3,9 +3,11 @@
   <head>
     <script>
       (() => {
-        const saved = localStorage.getItem("wintex-theme");
+        let saved;
+        try { saved = localStorage.getItem("wintex-theme"); } catch {}
         document.documentElement.dataset.theme =
-          saved === "dark" || saved === "light" ? saved : "light";
+          saved === "dark" || saved === "light" ? saved :
+            /^\/v2(?:\/|$)/.test(location.pathname) && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       })();
     </script>
     <meta charset="UTF-8" />
