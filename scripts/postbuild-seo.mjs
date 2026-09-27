@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -295,6 +296,11 @@ function ampDocument({ title, description, canonicalUrl, image, jsonLd, body }) 
 }
 
 function ampImage(src, alt, width, height, className = "") {
+  const pathname = new URL(src, siteUrl).pathname;
+  const basename = path.basename(pathname, path.extname(pathname));
+  // Reuse deploy-owned responsive assets; no cross-domain redirect or full-size photo.
+  src = [960, 640, 720, 360].map(size => `/assets/optimized/${basename}-${size}.webp`)
+    .find(candidate => existsSync(path.join(root, 'public', candidate))) || pathname;
   return `<amp-img${className ? ` class="${className}"` : ""} src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" width="${width}" height="${height}" layout="responsive"></amp-img>`;
 }
 

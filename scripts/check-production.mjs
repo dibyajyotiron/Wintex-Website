@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import { products } from "../src/data/products.js";
@@ -10,6 +11,14 @@ for (const route of routes) {
   assert.match(html, /content="index, follow, max-image-preview:large"/);
   assert.ok(!html.includes("/v2/"));
   assert.match(html, /name="wintex_quote"/);
+  assert.match(html, /<div id="root" data-page="[^"]+"><[^>]+/);
+  assert.match(html, /<h1[ >]/);
+  assert.match(html, /netlify-honeypot="bot-field"/);
+  assert.ok(!/<div class="v2-(hero-visual|detail-media)"[^>]*opacity:0/.test(html));
+  const policy = await readFile(new URL('../dist/_headers', import.meta.url), 'utf8');
+  for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+    if (!/\bsrc=/.test(match[1])) assert.ok(policy.includes(createHash('sha256').update(match[2]).digest('base64')), 'CSP must allow build-owned inline scripts');
+  }
   for (const field of ["name", "company", "email", "phone", "requirement", "message", "channel", "page", "submitted_at"]) {
     assert.ok(html.includes(`name="${field}"`), `Missing Netlify field: ${field}`);
   }
@@ -20,6 +29,8 @@ for (const product of products) {
   }
   const legacy = await readFile(new URL(`../dist/products/${product.slug}/index.html`, import.meta.url), "utf8");
   assert.ok(!legacy.includes('content="noindex, follow"'), "Legacy product indexing changed");
+  assert.ok(legacy.includes(`data-page="/products/${product.slug}"`));
+  assert.equal(legacy.match(/<h1[^>]*>(.*?)<\/h1>/s)?.[1].replaceAll('&amp;', '&'), product.name, 'Product HTML must render the correct product before JS');
 }
 
 const originalFetch = globalThis.fetch;
@@ -33,11 +44,19 @@ try {
     assert.equal(body.get("form-name"), "wintex_quote");
     assert.equal(body.get("requirement"), "Jewellery Scale & calibration");
     assert.equal(body.get("channel"), "website");
-    assert.ok(body.get("page").includes("/enquiry"));
+    assert.equal(body.get("page"), "https://www.wintex-scales.com/enquiry");
+    assert.equal(body.get("bot-field"), "");
     assert.ok(body.get("submitted_at"));
     return { ok: true };
   };
   await submitNetlifyForm(NETLIFY_FORMS.quote, { requirement: "Jewellery Scale & calibration", channel: "website" });
+  let spamRequests = 0;
+  globalThis.fetch = async () => { spamRequests++; return { ok: true }; };
+  await submitNetlifyForm(NETLIFY_FORMS.quote, { "bot-field": "spam" });
+  assert.equal(spamRequests, 0);
+  await submitNetlifyForm(NETLIFY_FORMS.whatsappInterest, { message: "deduplication test" });
+  await submitNetlifyForm(NETLIFY_FORMS.whatsappInterest, { message: "deduplication test" });
+  assert.equal(spamRequests, 1);
   globalThis.fetch = async () => ({ ok: false, status: 503 });
   await assert.rejects(() => submitNetlifyForm(NETLIFY_FORMS.quote, {}), /503/);
 } finally {

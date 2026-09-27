@@ -4,21 +4,21 @@
     "predev": "node scripts/generate-responsive-assets.mjs",
     "dev": "vite --host 0.0.0.0",
     "prebuild": "node scripts/generate-responsive-assets.mjs",
-    "build": "vite build && node scripts/postbuild-seo.mjs",
+    "build": "vite build && node scripts/postbuild-seo.mjs && node scripts/prerender.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "check": "node scripts/check-production.mjs",
     "check:v2": "npm run check"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
+    "@vitejs/plugin-react": "^6.0.3",
     "clsx": "^2.1.1",
-    "lucide-react": "latest",
+    "lucide-react": "^1.23.0",
     "motion": "^13.4.4",
     "next-themes": "^0.4.6",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "tailwind-merge": "^3.7.0",
-    "vite": "latest"
+    "vite": "^8.1.3"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

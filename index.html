@@ -74,7 +74,8 @@
     </title>
   </head>
   <body>
-    <form name="wintex_quote" method="POST" data-netlify="true" hidden>
+    <form name="wintex_quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
       <input type="hidden" name="form-name" value="wintex_quote" />
       <input type="text" name="name" />
       <input type="text" name="company" />
@@ -86,7 +87,8 @@
       <input type="text" name="page" />
       <input type="text" name="submitted_at" />
     </form>
-    <form name="whatsapp_interest" method="POST" data-netlify="true" hidden>
+    <form name="whatsapp_interest" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
       <input type="hidden" name="form-name" value="whatsapp_interest" />
       <textarea name="message"></textarea>
       <input type="text" name="source" />

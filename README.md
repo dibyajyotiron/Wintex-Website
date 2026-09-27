@@ -64,3 +64,41 @@ Responsive images use explicit dimensions, AVIF/WebP sources and lazy loading. H
 - `src/components/motion/`: installed beUI components and their shared helpers.
 
 Replace source assets in `public/assets/` with the same filenames, then rebuild. Product PDFs remain under `public/assets/specs/`. Theme and reading-size preferences persist locally using the existing Wintex keys.
+
+
+## Performance and security (September 2026)
+
+The build prerenders the same React UI into 13 HTML documents (home, enquiry,
+10 products, 404), then hydrates it in the browser. Hero content is visible
+without JavaScript; responsive AVIF/WebP images are discoverable immediately.
+Scroll motion and interactive controls remain progressive enhancements.
+Fingerprint-named JS/CSS live under `/assets/bundles/` and receive a one-year
+immutable browser cache. Non-versioned images revalidate rather than risking stale
+branding across deployments. Static assets already use Netlify's global CDN;
+Blobs is unnecessary for these deploy-owned files.
+
+`scripts/prerender.mjs` emits `dist/_headers` with hashes for all build-owned inline
+scripts. The CSP permits the existing Google map, AMP runtime, Simple Analytics,
+and Netlify RUM reporting endpoint. It disallows arbitrary inline scripts,
+plugins, framing, and external form actions. Motion requires inline styles.
+Review this allowlist whenever adding or changing an integration. Vite preview
+loads the generated CSP for local compatibility checks; restart preview after a
+build so the hashes match. Netlify also receives anti-framing, permissions,
+referrer, MIME-sniffing and HTTPS headers from `netlify.toml`.
+
+Both form definitions declare a honeypot and AJAX posts include it. Repeated
+identical tracking clicks are coalesced for 30 seconds; this is UX protection,
+not a server rate limit. Netlify's spam filtering remains the server-side defence.
+Privacy copy explains that opening a draft also submits details to Wintex via
+Netlify Forms. Tracking stores only origin/path, excluding URL query and hash.
+Treat CSV exports as untrusted: import customer fields as text and neutralize
+spreadsheet formulas before sharing/opening exports; client-side sanitizing cannot
+protect against direct bot POSTs. Review form access and retention in Netlify.
+
+Verification: `npm run build`, `npm run check`, `npm audit`, plus browser checks
+under the generated CSP. A local preview cannot prove Netlify submission ingestion,
+notification delivery, or improved real-user metrics. After deploying, verify
+both detected honeypots, one consented test lead, response headers, RUM/analytics
+requests, and compare mobile/desktop p75 FCP/LCP using a meaningful traffic sample.
+The September 28 audit observed WAF/rate limiting disabled in the account; no paid
+features or account-level security settings were changed.
