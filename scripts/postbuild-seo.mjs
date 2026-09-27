@@ -13,6 +13,7 @@ import {
   siteUrl,
 } from "../src/config/site.js";
 import { products } from "../src/data/products.js";
+import { products as v2Products } from "../src/v2/products.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -47,7 +48,7 @@ function productSeo(product) {
       ...(product.types ? ["pit type weighbridge", "pitless weighbridge", "surface mounted weighbridge"] : []),
       ...product.applications,
     ],
-    canonicalPath: `/products/${product.slug}`,
+    canonicalPath: (product.canonicalPath ?? `/products/${product.slug}`),
   };
 }
 
@@ -79,7 +80,7 @@ function organizationJsonLd() {
         "@type": "Product",
         name: product.name,
         category: product.category,
-        url: absoluteUrl(`/products/${product.slug}`),
+        url: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
       },
     })),
   };
@@ -89,7 +90,7 @@ function productJsonLd(product) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
-    "@id": `${absoluteUrl(`/products/${product.slug}`)}#product`,
+    "@id": `${absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`))}#product`,
     name: product.name,
     brand: {
       "@type": "Brand",
@@ -101,7 +102,7 @@ function productJsonLd(product) {
     category: product.category,
     image: absoluteUrl(product.image),
     description: product.summary,
-    url: absoluteUrl(`/products/${product.slug}`),
+    url: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
     additionalProperty: [
       ...(product.types ?? []).map((value) => ({
         "@type": "PropertyValue",
@@ -139,7 +140,7 @@ function productItemListJsonLd() {
     itemListElement: products.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: absoluteUrl(`/products/${product.slug}`),
+      url: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
       name: product.name,
     })),
   };
@@ -167,7 +168,7 @@ function breadcrumbJsonLd(product) {
         "@type": "ListItem",
         position: 3,
         name: product.name,
-        item: absoluteUrl(`/products/${product.slug}`),
+        item: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
       },
     );
   }
@@ -333,7 +334,7 @@ function homeAmpHtml() {
           ${products
       .map(
         (product) => `
-                <a class="product-card" href="${absoluteUrl(`/products/${product.slug}`)}">
+                <a class="product-card" href="${absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`))}">
                   ${ampImage(absoluteUrl(product.image), product.name, product.imageWidth, product.imageHeight)}
                   <div>
                     <small>${escapeHtml(product.category)}</small>
@@ -454,7 +455,7 @@ const v2Routes = [
   ["", baseHtml],
   ["enquiry", setTitle(baseHtml, "Discuss your requirement | Wintex Scales")],
   ["contact", setTitle(baseHtml, "Contact | Wintex Scales")],
-  ...products.map((product) => [`products/${product.slug}`, productHtml(baseHtml, product)]),
+  ...v2Products.map((product) => [`products/${product.slug}`, productHtml(baseHtml, product)]),
 ];
 for (const [route, source] of v2Routes) {
   const outputDir = path.join(dist, "v2", route);

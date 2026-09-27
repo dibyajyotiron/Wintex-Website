@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import { products } from "../src/data/products.js";
+import { products as v2Products } from "../src/v2/products.js";
 import { NETLIFY_FORMS, submitNetlifyForm } from "../src/utils/netlifyForms.js";
 
 // Run after the production build to catch route, asset, and Netlify contract drift.
-const routes = ["", "enquiry", "contact", ...products.map((p) => `products/${p.slug}`)];
+const routes = ["", "enquiry", "contact", ...v2Products.map((p) => `products/${p.slug}`)];
 for (const route of routes) {
   const html = await readFile(new URL(`../dist/v2/${route ? `${route}/` : ""}index.html`, import.meta.url), "utf8");
   assert.match(html, /content="noindex, follow"/);
@@ -44,7 +45,7 @@ try {
   if (originalWindow === undefined) delete globalThis.window;
   else globalThis.window = originalWindow;
 }
-console.log(`V2 checks passed: ${routes.length} routes, ${products.length} products, asset links, legacy metadata, and Netlify success/error contract.`);
+console.log(`V2 checks passed: ${routes.length} routes, ${v2Products.length} V2 products, asset links, legacy metadata, and Netlify success/error contract.`);
 
 const { enquiryLinks, handoffEnquiry } = await import('../src/v2/enquiry.js');
 const sample = { name: 'QA & Review', company: 'Test + Co', email: '', phone: '0000000000', requirement: '60 ton bridge\nCapacity & installation' };
@@ -81,3 +82,11 @@ try {
   else globalThis.window = originalWindow;
 }
 console.log('Enquiry handoff checks passed: both apps open synchronously, text is encoded correctly, and capture failures do not block either channel.');
+
+assert.deepEqual(v2Products.find(p => p.slug === "digital-indicator-it").models, ["WP14", "WP74", "WS14"]);
+const loadCells = v2Products.find(p => p.slug === "load-cells");
+assert.deepEqual(loadCells.capacities, ["30 t", "42.5 t"]);
+for (const asset of [loadCells.image, loadCells.download, ...loadCells.gallery.map(p => p.image), "/assets/wbpwd-logo.png", "/assets/adani-logo.svg"]) await access(new URL(`../public${asset}`, import.meta.url));
+const loadHtml = await readFile(new URL("../dist/v2/products/load-cells/index.html", import.meta.url), "utf8");
+assert.ok(loadHtml.includes('rel="canonical" href="https://www.wintex-scales.com/v2/products/load-cells"'));
+console.log("V2 additions verified: IT models, load-cell capacities and photos, client logos, and new-product canonical URL.");

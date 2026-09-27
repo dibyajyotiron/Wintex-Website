@@ -55,7 +55,7 @@ export function productSeo(product) {
       ...(product.types ? ["pit type weighbridge", "pitless weighbridge", "surface mounted weighbridge"] : []),
       ...product.applications,
     ],
-    canonicalPath: `/products/${product.slug}`,
+    canonicalPath: (product.canonicalPath ?? `/products/${product.slug}`),
   };
 }
 
@@ -87,7 +87,7 @@ export function organizationJsonLd() {
         "@type": "Product",
         name: product.name,
         category: product.category,
-        url: absoluteUrl(`/products/${product.slug}`),
+        url: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
       },
     })),
   };
@@ -120,7 +120,7 @@ export function productItemListJsonLd() {
     itemListElement: products.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: absoluteUrl(`/products/${product.slug}`),
+      url: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
       name: product.name,
     })),
   };
@@ -130,7 +130,7 @@ export function productJsonLd(product) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
-    "@id": `${absoluteUrl(`/products/${product.slug}`)}#product`,
+    "@id": `${absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`))}#product`,
     name: product.name,
     brand: {
       "@type": "Brand",
@@ -142,7 +142,7 @@ export function productJsonLd(product) {
     category: product.category,
     image: absoluteUrl(product.image),
     description: product.summary,
-    url: absoluteUrl(`/products/${product.slug}`),
+    url: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
     additionalProperty: [
       ...(product.types ?? []).map((value) => ({
         "@type": "PropertyValue",
@@ -179,7 +179,7 @@ export function breadcrumbJsonLd(product) {
       "@type": "ListItem",
       position: 3,
       name: product.name,
-      item: absoluteUrl(`/products/${product.slug}`),
+      item: absoluteUrl((product.canonicalPath ?? `/products/${product.slug}`)),
     });
   }
 

@@ -291,3 +291,49 @@ body { margin: 0; min-width: 320px; background: var(--v2-bg); color: var(--v2-in
 .v2-foundation p { font-size: 13px; line-height: 1.7; }
 @media (max-width: 1000px) { .v2-foundation figcaption { grid-template-columns: 1fr; gap: 12px; } .v2-enquiry-actions { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .v2-foundation-grid { grid-template-columns: 1fr; gap: 25px; } .v2-foundation img { aspect-ratio: 1.2; } .v2-foundation figcaption { padding: 20px 0; } .v2-foundation h3 { font-size: 27px; } }
+
+/* Readable defaults, with a persisted visitor-controlled reading scale. */
+:root { --v2-text-scale: 1; }
+.v2-site p:not(.v2-eyebrow), .v2-site .v2-specs li { font-size: calc(17px * var(--v2-text-scale)); line-height: 1.75; }
+.v2-site .v2-eyebrow { font-size: calc(12px * var(--v2-text-scale)); }
+.v2-site .v2-detail-copy .v2-detail-note { font-size: calc(14px * var(--v2-text-scale)) !important; }
+.v2-site .v2-enquiry .v2-branches { font-size: calc(15px * var(--v2-text-scale)) !important; }
+.v2-site .v2-nav > a, .v2-site .v2-text-link, .v2-site .v2-back, .v2-site .v2-filter { font-size: calc(14px * var(--v2-text-scale)); }
+.v2-site .v2-button, .v2-site .v2-enquiry-actions .v2-button { font-size: calc(15px * var(--v2-text-scale)); }
+.v2-site .v2-form label { font-size: calc(15px * var(--v2-text-scale)); }
+.v2-site .v2-form input:not([type="hidden"]), .v2-site .v2-form textarea, .v2-site .v2-whatsapp-panel textarea { font-size: calc(17px * var(--v2-text-scale)); }
+.v2-site .v2-form textarea::placeholder { font-size: calc(15px * var(--v2-text-scale)); }
+.v2-site .v2-tags span, .v2-site .v2-product-caption > span, .v2-site .v2-contact-details span, .v2-site .v2-contact-details strong, .v2-site .v2-metrics > div > span, .v2-site .v2-footer-top > div a, .v2-site .v2-map-actions a, .v2-site .v2-catalogue-footer a { font-size: calc(14px * var(--v2-text-scale)); }
+.v2-site .v2-footer-bottom { font-size: calc(13px * var(--v2-text-scale)); }
+.v2-site .v2-form-privacy, .v2-site .v2-compose-note, .v2-site .v2-map .v2-map-help { font-size: calc(14px * var(--v2-text-scale)); }
+.v2-site .v2-specs summary { font-size: calc(19px * var(--v2-text-scale)); }
+.v2-site .v2-whatsapp-panel label, .v2-site .v2-chat-phone { font-size: calc(14px * var(--v2-text-scale)); }
+.v2-text-settings { position: relative; flex-shrink: 0; }
+.v2-text-settings > summary { list-style: none; display: grid; place-items: center; min-width: 42px; height: 44px; cursor: pointer; font-size: 18px; letter-spacing: -.05em; }
+.v2-text-settings > summary::-webkit-details-marker { display: none; }
+.v2-text-settings[open] > summary { background: var(--v2-surface); }
+.v2-text-panel { position: absolute; right: 0; top: 54px; width: 255px; padding: 22px; border: 1px solid var(--v2-line); background: var(--v2-paper); color: var(--v2-ink); box-shadow: 0 15px 35px #0002; z-index: 50; }
+.v2-text-panel > strong { font-size: 18px; }
+.v2-site .v2-text-panel > p { font-size: 14px; margin: 10px 0 16px; }
+.v2-text-panel > div { display: grid; gap: 8px; }
+.v2-site .v2-size-option { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--v2-line); background: var(--v2-bg); color: var(--v2-ink); padding: 12px; height: auto; border-radius: 2px; font-size: 15px; }
+.v2-size-option[aria-pressed="true"] { border-color: var(--v2-red); }
+.v2-clients { display: block; }
+.v2-clients .v2-eyebrow { width: auto; margin-bottom: 24px; }
+.v2-clients > div { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 18px; }
+.v2-clients > div > img, :root[data-theme="dark"] .v2-clients > div > img { width: 100%; height: 96px; background: #fff; padding: 18px 12px; object-fit: contain; }
+.v2-client-added { background: #fff; height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 7px; gap: 5px; }
+.v2-site .v2-client-added img { width: 100%; height: 55px; padding: 4px; object-fit: contain; }
+.v2-client-added span { font-size: 12px; color: #333; text-align: center; }
+.v2-product-options { margin: 28px 0; padding-block: 20px; border-block: 1px solid var(--v2-line); }
+.v2-product-options .v2-eyebrow { margin-bottom: 14px; }
+.v2-product-options > div { display: flex; flex-wrap: wrap; gap: 14px; }
+.v2-product-options > div > span { font-size: 25px; font-weight: 500; padding: 12px 20px; background: var(--v2-surface); border: 1px solid var(--v2-line); letter-spacing: -.025em; }
+.v2-load-gallery { border-top: 1px solid var(--v2-line); }
+.v2-load-gallery > div:last-child { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.v2-load-gallery figure { margin: 0; padding: 24px; background: #fff; }
+.v2-load-gallery img { width: 100%; height: 440px; object-fit: contain; }
+@media (max-width: 1350px) { .v2-header { gap: 16px; } .v2-site .v2-menu { display: flex; } .v2-header-actions > .v2-button { display: none; } .v2-nav { display: none; position: absolute; top: 91px; left: 0; right: 0; background: var(--v2-bg); padding: 24px 5%; border-bottom: 1px solid var(--v2-line); max-height: calc(100dvh - 100px); overflow: auto; } .v2-nav.is-open { display: flex; flex-direction: column; align-items: stretch; gap: 8px; } .v2-nav .v2-mobile-contact { display: flex; gap: 10px; } }
+@media (max-width: 1000px) { .v2-clients > div { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 800px) { .v2-nav { top: 75px; } .v2-section-heading { flex-direction: column; align-items: flex-start; } .v2-section-heading > p { max-width: none; } .v2-detail-hero { grid-template-columns: 1fr; gap: 35px; } .v2-load-gallery img { height: 320px; } }
+@media (max-width: 600px) { .v2-text-panel { right: -65px; max-width: calc(100vw - 36px); } .v2-header { gap: 10px; } .v2-brand { width: 133px; } .v2-header-actions { gap: 2px; } .v2-clients > div { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .v2-company-principles { grid-template-columns: 1fr; } .v2-company-intro h2 { overflow-wrap: break-word; } .v2-enquiry h1 { font-size: 40px; } .v2-footer-top { grid-template-columns: 1fr; } .v2-load-gallery > div:last-child { grid-template-columns: 1fr; } .v2-footer-top > div { grid-column: auto; } .v2-service-contact span { font-size: calc(16px * var(--v2-text-scale)); } }

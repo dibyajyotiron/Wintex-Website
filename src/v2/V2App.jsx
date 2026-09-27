@@ -8,7 +8,7 @@ import { WhatsAppIcon, FacebookIcon, InstagramIcon, YouTubeIcon, XIcon } from ".
 import { TextReveal } from "../components/motion/text-reveal";
 import { ThemeToggle } from "../components/motion/theme-toggle";
 import { OptimizedImage } from "../components/common/OptimizedImage";
-import { products } from "../data/products";
+import { products } from "./products.js";
 import { proofPoints, clientLogos, services, companyHighlights, branchLocations } from "../data/siteContent";
 import { address, contactEmail, phoneNumbers, whatsappNumber, cataloguePath, mapUrl } from "../config/site";
 import { NETLIFY_FORMS, submitNetlifyForm } from "../utils/netlifyForms";
@@ -18,8 +18,8 @@ import "./v2.css";
 
 const productUrl = (product) => `/v2/products/${product.slug}`;
 const quoteUrl = (product) => `/v2/enquiry${product ? `?product=${encodeURIComponent(product.slug)}` : ""}`;
-const groups = ["All products", "Weighbridges", "Industrial & retail", "Precision", "Electronics"];
-const groupFor = (product) => /weighbridges|unmanned/.test(product.slug) ? groups[1] : /jewellery|micro-mini/.test(product.slug) ? groups[3] : /indicator|protection/.test(product.slug) ? groups[4] : groups[2];
+const groups = ["All products", "Weighbridges", "Industrial & retail", "Precision", "Components & electronics"];
+const groupFor = (product) => /weighbridges|unmanned/.test(product.slug) ? groups[1] : /jewellery|micro-mini/.test(product.slug) ? groups[3] : /indicator|protection|load-cells/.test(product.slug) ? groups[4] : groups[2];
 
 function Reveal({ children, className = "" }) {
   const reduce = useReducedMotion();
@@ -32,6 +32,17 @@ function Action({ children, href, secondary = false, ...props }) {
 
 function ProductImage({ product, eager = false }) {
   return <OptimizedImage src={product.image} alt={product.name} width={product.imageWidth} height={product.imageHeight} widths={[360, 640, 960, 1280]} sizes="(max-width: 700px) 90vw, 45vw" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} />;
+}
+
+function TextSizeControl() {
+  const [size, setSize] = useState(() => {
+    try { return ["standard", "large", "largest"].includes(localStorage.getItem("wintex-text-size")) ? localStorage.getItem("wintex-text-size") : "standard"; } catch { return "standard"; }
+  });
+  useEffect(() => {
+    document.documentElement.style.setProperty("--v2-text-scale", { standard: "1", large: "1.125", largest: "1.25" }[size]);
+    try { localStorage.setItem("wintex-text-size", size); } catch {}
+  }, [size]);
+  return <details className="v2-text-settings" onKeyDown={(event) => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary").focus(); } }}><summary aria-label="Text size settings" title="Adjust text size">Aa</summary><div className="v2-text-panel"><strong>Text size</strong><p>Choose a comfortable reading size.</p><div role="group" aria-label="Reading size">{[["standard", "Standard"], ["large", "Larger"], ["largest", "Largest"]].map(([value, label]) => <Button key={value} className="v2-size-option" aria-pressed={size === value} onClick={(event) => { setSize(value); const control = event.currentTarget.closest("details"); control.open = false; control.querySelector("summary").focus(); }}>{label}{size === value && <Check size={15} />}</Button>)}</div></div></details>;
 }
 
 function Header() {
@@ -48,7 +59,7 @@ function Header() {
       {[["Home", "top"], ["Clients", "clients"], ["About", "about"], ["Products", "products"], ["Automation", "automation"], ["Services", "expertise"], ["Contact", "enquiry"]].map(([label, id]) => <a key={id} href={`/v2#${id}`} onClick={() => setOpen(false)}>{label}</a>)}
       <a className="v2-mobile-contact" href="/v2#enquiry">Get in touch <ArrowUpRight size={16} /></a>
     </nav>
-    <div className="v2-header-actions"><ThemeToggle className="v2-icon-button" iconClassName="v2-theme-icon" variant="circle" start="top-right" /><Action href="/v2#enquiry">Let’s talk <ArrowUpRight size={16} /></Action><button className="v2-icon-button v2-menu" aria-label={open ? "Close navigation" : "Open navigation"} aria-controls="v2-navigation" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></div>
+    <div className="v2-header-actions"><TextSizeControl /><ThemeToggle className="v2-icon-button" iconClassName="v2-theme-icon" variant="circle" start="top-right" /><Action href="/v2#enquiry">Let’s talk <ArrowUpRight size={16} /></Action><button className="v2-icon-button v2-menu" aria-label={open ? "Close navigation" : "Open navigation"} aria-controls="v2-navigation" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></div>
   </header>;
 }
 
@@ -78,7 +89,7 @@ function Home() {
       <div className="v2-hero-copy"><p className="v2-eyebrow"><span className="v2-status-dot" /> Precision engineered. Since 1994.</p><TextReveal as="h1" text={["Precision.", "At every scale."]} stagger={0.065} blur={0} /><p className="v2-hero-description">Industrial weighbridges. Commercial scales.<br />Engineered, installed, and supported by weighing specialists since 1994.</p><div className="v2-actions"><Action href="#products">Explore our products <ArrowUpRight size={18} /></Action><a className="v2-text-link" href={cataloguePath} download>View catalogue <Download size={17} /></a></div><div className="v2-hero-note"><span className="v2-note-line" /><span>ENGINEERED IN INDIA.<br />TRUSTED ACROSS INDUSTRIES.</span></div></div>
       <Reveal className="v2-hero-visual"><img src="/assets/hero-weighbridge-shared.jpeg" alt="Wintex weighbridge supporting a concrete mixer truck at an industrial site" width="1370" height="1148" fetchPriority="high" /><div className="v2-image-label"><span>HEAVY-DUTY PERFORMANCE</span><a href={productUrl(products[0])}>Precision at every scale <ArrowUpRight /></a></div><span className="v2-vertical-label">WINTEX / INDUSTRIAL WEIGHING SOLUTIONS</span></Reveal>
     </section>
-    <section className="v2-clients" id="clients"><p className="v2-eyebrow">Trusted by industry leaders</p><div>{clientLogos.map((client) => <img key={client.name} src={client.image} alt={client.name} width={client.width} height={client.height} loading="lazy" />)}</div></section>
+    <section className="v2-clients" id="clients"><p className="v2-eyebrow">Trusted by industry leaders</p><div>{clientLogos.map((client) => <img key={client.name} src={client.image} alt={client.name} width={client.width} height={client.height} loading="lazy" />)}<a className="v2-client-added" href="https://wbpwd.gov.in/" target="_blank" rel="noreferrer"><img src="/assets/wbpwd-logo.png" alt="Public Works Department, West Bengal" /><span>West Bengal PWD</span></a><a className="v2-client-added" href="https://www.adani.com/businesses/transport-logistics/agri-logistics" target="_blank" rel="noreferrer"><img src="/assets/adani-logo.svg" alt="Adani" /><span>Agri Logistics</span></a></div></section>
     <CompanySection />
     <Catalogue />
     <section className="v2-automation v2-section" id="automation"><Reveal className="v2-automation-copy"><p className="v2-eyebrow">Connected. Automated. In control.</p><h2>A smarter way<br />to weigh.</h2><p>Move from manual checkpoints to a connected weighing workflow. Wintex unmanned systems bring vehicle identification, positioning, monitoring, and ERP integration together.</p><div className="v2-tags"><span>ANPR + RFID</span><span>ERP integration</span><span>Remote monitoring</span></div><Action href={productUrl(products[1])}>Explore unmanned systems <ArrowUpRight size={18} /></Action></Reveal><Reveal className="v2-automation-media"><ProductImage product={products[1]} /><div><span><Check size={16} /> Vehicle identification</span><span><Check size={16} /> Automated weighing</span><span><Check size={16} /> Connected reporting</span></div></Reveal></section>
@@ -100,7 +111,8 @@ function CompanySection() {
 
 function ProductDetail({ product }) {
   return <>
-    <section className="v2-section v2-detail-top"><a className="v2-back" href="/v2#products"><ArrowLeft size={17} /> All products</a><div className="v2-detail-hero"><Reveal className="v2-detail-media"><ProductImage product={product} eager /><span className="v2-eyebrow">WINTEX / {product.category}</span></Reveal><div className="v2-detail-copy"><p className="v2-eyebrow">Purpose-built precision</p><TextReveal as="h1" text={product.name} blur={0} /><p>{product.summary}</p><div className="v2-tags">{product.applications.map((app) => <span key={app}>{app}</span>)}</div><div className="v2-actions"><Action href={quoteUrl(product)}>Request a quote <ArrowUpRight size={18} /></Action><Action secondary href={product.download} download>Specifications <Download size={17} /></Action></div><p className="v2-detail-note"><Check size={16} /> Configuration guidance · Installation · After-sales support</p></div></div></section>
+    <section className="v2-section v2-detail-top"><a className="v2-back" href="/v2#products"><ArrowLeft size={17} /> All products</a><div className="v2-detail-hero"><Reveal className="v2-detail-media"><ProductImage product={product} eager /><span className="v2-eyebrow">WINTEX / {product.category}</span></Reveal><div className="v2-detail-copy"><p className="v2-eyebrow">Purpose-built precision</p><TextReveal as="h1" text={product.name} blur={0} /><p>{product.summary}</p>{(product.models || product.capacities) && <div className="v2-product-options"><p className="v2-eyebrow">{product.models ? "Available models" : "Rated capacities"}</p><div>{(product.models || product.capacities).map((option) => <span key={option}>{option}</span>)}</div></div>}<div className="v2-tags">{product.applications.map((app) => <span key={app}>{app}</span>)}</div><div className="v2-actions"><Action href={quoteUrl(product)}>Request a quote <ArrowUpRight size={18} /></Action><Action secondary href={product.download} download>{product.downloadLabel || "Specifications"} <Download size={17} /></Action></div><p className="v2-detail-note"><Check size={16} /> Configuration guidance · Installation · After-sales support</p></div></div></section>
+    {product.gallery && <section className="v2-section v2-load-gallery"><div className="v2-section-heading"><div><p className="v2-eyebrow">Wintex load cells</p><h2>Built into your weighing system.</h2></div><p>Available in 30 t and 42.5 t capacities. Contact our team to confirm the right assembly for your installation.</p></div><div>{product.gallery.map((photo) => <figure key={photo.image}><img src={photo.image} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" /></figure>)}</div></section>}
     <section className="v2-section v2-technical"><div><p className="v2-eyebrow">Designed for your operation</p><h2>The details<br />make the difference.</h2><p>Explore the capabilities of {product.name.toLowerCase()} and discuss the right configuration with our team.</p></div><div>{[["Technical specifications", product.specs], ["Features & capabilities", product.features], ...(product.types ? [["Available configurations", product.types]] : []), ["Applications", product.applications]].map(([title, items], index) => <details className="v2-specs" key={title} open={index === 0}><summary>{title}<Plus size={20} /></summary><ul>{items.map((item) => <li key={item}>{item}</li>)}</ul></details>)}</div></section>
     {product.typeGallery && <section className="v2-section v2-foundations" id="foundations"><div className="v2-section-heading"><div><p className="v2-eyebrow">A structure for every site</p><h2>Choose your foundation.</h2></div><p>Four installation formats. Explore the structure that suits your site, access, and operating requirements.</p></div><div className="v2-foundation-grid">{product.typeGallery.map((type) => <Reveal key={type.title} className="v2-foundation"><figure><img src={type.image} alt={type.title} loading="lazy" width={type.imageWidth} height={type.imageHeight} /><figcaption><h3>{type.title}</h3><p>{type.text}</p></figcaption></figure></Reveal>)}</div></section>}
     <section className="v2-section v2-related"><div className="v2-section-heading"><div><p className="v2-eyebrow">Keep exploring</p><h2>More from Wintex.</h2></div><a className="v2-text-link" href="/v2#products">View all products <ArrowUpRight size={18} /></a></div><div className="v2-product-grid">{products.filter((item) => item.slug !== product.slug).sort((a, b) => Number(groupFor(b) === groupFor(product)) - Number(groupFor(a) === groupFor(product))).slice(0, 3).map((item) => <ProductCard key={item.slug} product={item} index={products.indexOf(item)} />)}</div></section>
