@@ -3,7 +3,7 @@
   "style": "new-york",
   "rsc": false,
   "tsx": true,
-  "tailwind": { "config": "", "css": "src/v2/v2.css", "baseColor": "neutral", "cssVariables": true },
+  "tailwind": { "config": "", "css": "src/App.css", "baseColor": "neutral", "cssVariables": true },
   "aliases": { "components": "@/components", "utils": "@/lib/utils", "ui": "@/components/ui", "lib": "@/lib", "hooks": "@/hooks" },
   "registries": { "@beui": "https://beui.dev/r/{name}.json" }
 }

@@ -1,51 +1,50 @@
 export const products = [
   {
-    slug: "electronic-weighbridges",
-    name: "Weighbridge",
-    category: "Weighbridge",
-    image: "/assets/weighbridge-main.png",
-    imageWidth: 1559,
-    imageHeight: 1009,
-    download: "/assets/specs/pitless-weighbridge.pdf",
-    summary:
-      "Wintex weighbridges support factories, farms, mills, dispatch yards, and bulk loading operations with modular platform structures, sealed loadcells, and micro-processor based digital indication.",
-    types: [
+    "slug": "electronic-weighbridges",
+    "name": "Weighbridge",
+    "category": "Weighbridge",
+    "image": "/assets/weighbridge-main.png",
+    "imageWidth": 1559,
+    "imageHeight": 1009,
+    "download": "/assets/specs/pitless-weighbridge.pdf",
+    "summary": "Wintex weighbridges support factories, farms, mills, dispatch yards, and bulk loading operations with modular platform structures, sealed loadcells, and micro-processor based digital indication.",
+    "types": [
       "Pit Type Weighbridge: robust and accurate flush-platform installation for heavy-duty vehicle weighing.",
       "Pitless Weighbridge: above-ground installation with ramps, faster installation, and simpler maintenance access.",
       "Modular Steel Weighbridge: portable modular platform structure for flexible on-site weighing requirements.",
-      "Semi RCC Weighbridge: semi-concealed steel and RCC construction for durable industrial installations.",
+      "Semi RCC Weighbridge: semi-concealed steel and RCC construction for durable industrial installations."
     ],
-    typeGallery: [
+    "typeGallery": [
       {
-        title: "Pit Type Weighbridge",
-        image: "/assets/weighbridge-type-pit.png",
-        imageWidth: 1448,
-        imageHeight: 1086,
-        text: "Flush-platform installation for heavy-duty applications where approach space is limited.",
+        "title": "Pit Type Weighbridge",
+        "image": "/assets/weighbridge-type-pit.png",
+        "imageWidth": 1448,
+        "imageHeight": 1086,
+        "text": "Flush-platform installation for heavy-duty applications where approach space is limited."
       },
       {
-        title: "Pitless Weighbridge",
-        image: "/assets/weighbridge-type-pitless.png",
-        imageWidth: 1086,
-        imageHeight: 1448,
-        text: "Above-ground bridge with ramps for easier civil work, cleaning, and maintenance.",
+        "title": "Pitless Weighbridge",
+        "image": "/assets/weighbridge-type-pitless.png",
+        "imageWidth": 1086,
+        "imageHeight": 1448,
+        "text": "Above-ground bridge with ramps for easier civil work, cleaning, and maintenance."
       },
       {
-        title: "Modular Steel Weighbridge",
-        image: "/assets/weighbridge-type-modular.png",
-        imageWidth: 1672,
-        imageHeight: 941,
-        text: "Steel fabricated modules built for portable, scalable, and high-capacity weighing sites.",
+        "title": "Modular Steel Weighbridge",
+        "image": "/assets/weighbridge-type-modular.png",
+        "imageWidth": 1672,
+        "imageHeight": 941,
+        "text": "Steel fabricated modules built for portable, scalable, and high-capacity weighing sites."
       },
       {
-        title: "Semi RCC Weighbridge",
-        image: "/assets/weighbridge-type-semi-rcc.png",
-        imageWidth: 1422,
-        imageHeight: 1106,
-        text: "Semi-concealed steel and RCC construction for rugged long-life industrial installations.",
-      },
+        "title": "Semi RCC Weighbridge",
+        "image": "/assets/weighbridge-type-semi-rcc.png",
+        "imageWidth": 1422,
+        "imageHeight": 1106,
+        "text": "Semi-concealed steel and RCC construction for rugged long-life industrial installations."
+      }
     ],
-    specs: [
+    "specs": [
       "Pit type, pitless, modular steel and semi RCC platform structure options",
       "Modular steel fabrication with up to two modules per weighbridge",
       "Pit-mounted and semi-concealed structures are assembled on civil foundations",
@@ -57,99 +56,96 @@ export const products = [
       "Non-repeatability: <+/- 0.01% full scale output",
       "Safe overload: 150% of rated capacity",
       "Temperature compensated range: 0-60 Degree C",
-      "Construction: electro-less nickel plated tool steel",
+      "Construction: electro-less nickel plated tool steel"
     ],
-    features: [
+    "features": [
       "Double-ended shear beam or compression loadcells made from high alloy tool steel",
       "Loadcells sealed against moisture ingression and nickel plated for corrosion resistance",
       "Digital indicator with high-performance micro processor based system",
       "Special optical isolators to protect against environmental noise",
       "Front-panel push-button calibration",
-      "Designed for high precision, shock resistance, and overload resistance",
+      "Designed for high precision, shock resistance, and overload resistance"
     ],
-    applications: [
+    "applications": [
       "Factory dispatch",
       "Logistics yards",
       "Mines and quarries",
-      "Farms, mills, and terminals",
-    ],
+      "Farms, mills, and terminals"
+    ]
   },
   {
-    slug: "unmanned-weighbridge-system",
-    name: "Unmanned Weighbridge System",
-    category: "Automated weighbridge system",
-    image: "/assets/unmanned-weighbridge-system.png",
-    imageWidth: 1400,
-    imageHeight: 420,
-    download: "/assets/wintex-product-catalogue.pdf",
-    summary:
-      "A next-gen automated weighbridge workflow with ANPR cameras, RFID vehicle identification, boom barriers, IR positioning sensors, traffic lights, LED displays, voice guidance, CCTV surveillance, and ERP integration.",
-    specs: [
+    "slug": "unmanned-weighbridge-system",
+    "name": "Unmanned Weighbridge System",
+    "category": "Automated weighbridge system",
+    "image": "/assets/unmanned-weighbridge-system.png",
+    "imageWidth": 1400,
+    "imageHeight": 420,
+    "download": "/assets/wintex-product-catalogue.pdf",
+    "summary": "A next-gen automated weighbridge workflow with ANPR cameras, RFID vehicle identification, boom barriers, IR positioning sensors, traffic lights, LED displays, voice guidance, CCTV surveillance, and ERP integration.",
+    "specs": [
       "Fully automated weighing with zero human intervention",
       "ANPR camera and RFID vehicle identification support",
       "Boom barriers, IR positioning sensors, traffic lights and LED displays",
       "Voice guidance and CCTV surveillance for complete automation",
       "ERP platform integration support including SAP, Oracle and Microsoft Dynamics",
       "Cloud data backup, remote monitoring and advanced reporting",
-      "Built with industrial-grade hardware and weatherproof enclosures",
+      "Built with industrial-grade hardware and weatherproof enclosures"
     ],
-    features: [
+    "features": [
       "24x7 operations for non-stop reliable performance",
       "High-accuracy weighing with error-reduced vehicle positioning",
       "Enhanced security through smart surveillance and access control",
       "Up to 60% faster vehicle turnaround time",
-      "Reduced manual errors and improved operational efficiency",
+      "Reduced manual errors and improved operational efficiency"
     ],
-    applications: [
+    "applications": [
       "Public weighbridges",
       "Factory dispatch gates",
       "Logistics yards",
-      "Mines and bulk loading sites",
-    ],
+      "Mines and bulk loading sites"
+    ]
   },
   {
-    slug: "power-lightning-protection-device",
-    name: "Power & Lightning Protection Device",
-    category: "Weighbridge protection electronics",
-    image: "/assets/power-lightning-protection-device.png",
-    imageWidth: 900,
-    imageHeight: 666,
-    download: "/assets/wintex-product-catalogue.pdf",
-    summary:
-      "A protection panel for weighbridge electronics that guards indicators and connected systems from voltage surges, lightning risk, unstable line conditions, and unsafe earthing.",
-    specs: [
+    "slug": "power-lightning-protection-device",
+    "name": "Power & Lightning Protection Device",
+    "category": "Weighbridge protection electronics",
+    "image": "/assets/power-lightning-protection-device.png",
+    "imageWidth": 900,
+    "imageHeight": 666,
+    "download": "/assets/wintex-product-catalogue.pdf",
+    "summary": "A protection panel for weighbridge electronics that guards indicators and connected systems from voltage surges, lightning risk, unstable line conditions, and unsafe earthing.",
+    "specs": [
       "Next-gen GBT motherboard absorbs deadly voltage surges",
       "Dual-layer protection combines power and lightning/surge safety",
       "Auto high-voltage cut-off with isolation engineered between 240V and 280V thresholds",
       "Precision delay setup with customizable fast/slow response",
       "Live digital voltmeter tracks incoming AC voltage up to 300V",
       "Heavy-duty dual C&S premium MCB isolation",
-      "Smart earthing monitor with instant visual alerts and earthing OK status",
+      "Smart earthing monitor with instant visual alerts and earthing OK status"
     ],
-    features: [
+    "features": [
       "Protects costly scale indicators and weighbridge electronics",
       "One-touch simple, reliable and operator-friendly control",
       "Designed for harsh industrial power conditions",
-      "Improves uptime by reducing avoidable electrical failures",
+      "Improves uptime by reducing avoidable electrical failures"
     ],
-    applications: [
+    "applications": [
       "Weighbridge control rooms",
       "Digital indicator protection",
       "Lightning-prone sites",
-      "Industrial sites with voltage fluctuations",
-    ],
+      "Industrial sites with voltage fluctuations"
+    ]
   },
   {
-    slug: "heavy-duty-platform-scale",
-    name: "Heavy Duty Platform Scale",
-    category: "Industrial floor and bulky item weighing",
-    image: "/assets/heavy-duty-platform-scale.png",
-    imageWidth: 1317,
-    imageHeight: 1194,
-    download: "/assets/specs/platform-scale.pdf",
-    summary:
-      "Wintex heavy duty platform scales are built for industrial floor weighing, bulky item weighing, factories, warehouses, shipping and receiving departments, and loading docks where durable construction and dependable accuracy matter.",
-    specs: [
+    "slug": "heavy-duty-platform-scale",
+    "name": "Heavy Duty Platform Scale",
+    "category": "Industrial floor and bulky item weighing",
+    "image": "/assets/heavy-duty-platform-scale.png",
+    "imageWidth": 1317,
+    "imageHeight": 1194,
+    "download": "/assets/specs/platform-scale.pdf",
+    "summary": "Wintex heavy duty platform scales are built for industrial floor weighing, bulky item weighing, factories, warehouses, shipping and receiving departments, and loading docks where durable construction and dependable accuracy matter.",
+    "specs": [
       "Capacity range: 50 kg to 1000 kg",
       "Durable steel fabrication with heavy-duty floor platform construction",
       "Engineered with hi-tech electronic components",
@@ -157,18 +153,18 @@ export const products = [
       "High-accuracy weighing for industrial and commercial use",
       "Designed for regular material movement, loading operations, and bulky item weighing",
       "Suitable for factory and warehouse floor operations",
-      "Designed for easy maintenance",
+      "Designed for easy maintenance"
     ],
-    features: [
+    "features": [
       "Rugged platform build for daily industrial use",
       "Stable weighing surface for bulky material",
       "Durable steel structure",
       "Practical serviceability and after-sales support",
       "Suitable for factory, warehouse, dispatch, and commercial environments",
       "Built for oversized products",
-      "Easy to maintain and service",
+      "Easy to maintain and service"
     ],
-    applications: [
+    "applications": [
       "Industrial production floors",
       "Factories",
       "Warehouses",
@@ -176,20 +172,19 @@ export const products = [
       "Dispatch departments",
       "Shipping and receiving departments",
       "Loading docks",
-      "Commercial material handling",
-    ],
+      "Commercial material handling"
+    ]
   },
   {
-    slug: "table-top-scale",
-    name: "Table Top Scale",
-    category: "Retail and counter operations",
-    image: "/assets/table-top-medium.jpg",
-    imageWidth: 1300,
-    imageHeight: 866,
-    download: "/assets/specs/table-top-scale.pdf",
-    summary:
-      "A stainless-steel digital table top weighing scale for fast counter weighing, built with a front LED display and high-sensitivity loadcell.",
-    specs: [
+    "slug": "table-top-scale",
+    "name": "Table Top Scale",
+    "category": "Retail and counter operations",
+    "image": "/assets/table-top-medium.jpg",
+    "imageWidth": 1300,
+    "imageHeight": 866,
+    "download": "/assets/specs/table-top-scale.pdf",
+    "summary": "A stainless-steel digital table top weighing scale for fast counter weighing, built with a front LED display and high-sensitivity loadcell.",
+    "specs": [
       "Stainless steel body",
       "240 mm x 300 mm stainless steel weighing pan",
       "Capacity options: 10 kg, 20 kg and 30 kg",
@@ -197,70 +192,68 @@ export const products = [
       "Front LED display",
       "0.80 inch green LED display",
       "High-sensitivity loadcell",
-      "Adjustable feet and external calibration",
+      "Adjustable feet and external calibration"
     ],
-    features: [
+    "features": [
       "Sturdy and durable counter body",
       "Multiple weighing modes for faster operation",
       "Designed for quick, accurate results",
-      "Compact footprint for retail, packing, and dispatch counters",
+      "Compact footprint for retail, packing, and dispatch counters"
     ],
-    applications: [
+    "applications": [
       "Retail counters",
       "Packing desks",
       "Food processing counters",
-      "Dispatch desks",
-    ],
+      "Dispatch desks"
+    ]
   },
   {
-    slug: "chicken-scale",
-    name: "Chicken Scale",
-    category: "Poultry and food weighing",
-    image: "/assets/chicken-scale.jpg",
-    imageWidth: 832,
-    imageHeight: 1300,
-    download: "/assets/specs/table-top-scale.pdf",
-    summary:
-      "A practical weighing scale for poultry and food counters, included in the Wintex table-top/platform range for fast commercial weighing.",
-    specs: [
+    "slug": "chicken-scale",
+    "name": "Chicken Scale",
+    "category": "Poultry and food weighing",
+    "image": "/assets/chicken-scale.jpg",
+    "imageWidth": 832,
+    "imageHeight": 1300,
+    "download": "/assets/specs/table-top-scale.pdf",
+    "summary": "A practical weighing scale for poultry and food counters, included in the Wintex table-top/platform range for fast commercial weighing.",
+    "specs": [
       "Available with 300 mm x 300 mm and 400 mm x 400 mm platform sizes",
       "Digital weighing system for poultry and food counter use",
       "Counter and shop-floor friendly format",
-      "Designed for frequent daily weighing",
+      "Designed for frequent daily weighing"
     ],
-    features: [
+    "features": [
       "Purpose-fit for poultry counters",
       "Easy-to-clean commercial weighing workflow",
       "Stable platform format",
-      "Supports fast retail and wholesale operation",
+      "Supports fast retail and wholesale operation"
     ],
-    applications: [
+    "applications": [
       "Poultry counters",
       "Meat shops",
       "Food retail",
-      "Wholesale weighing",
-    ],
+      "Wholesale weighing"
+    ]
   },
   {
-    slug: "jewellery-scale",
-    name: "Jewellery Scale",
-    category: "Precision scale series",
-    image: "/assets/jewellery-scale.jpg",
-    imageWidth: 1241,
-    imageHeight: 1300,
-    download: "/assets/specs/jewellery-scale.pdf",
-    summary:
-      "A high-sensitivity precision scale for jewellery, valuables, laboratory measurements, and fine counter weighing.",
-    specs: [
+    "slug": "jewellery-scale",
+    "name": "Jewellery Scale",
+    "category": "Precision scale series",
+    "image": "/assets/jewellery-scale.jpg",
+    "imageWidth": 1241,
+    "imageHeight": 1300,
+    "download": "/assets/specs/jewellery-scale.pdf",
+    "summary": "A high-sensitivity precision scale for jewellery, valuables, laboratory measurements, and fine counter weighing.",
+    "specs": [
       "Accurate and fast weighing using the latest 24-bit sigma-delta converter",
       "0.8 inch high dual bright green LED display",
       "Triple accuracy",
       "Printer port optional",
       "RS-232 PC connection optional",
       "Various conversion units including carat, tola and grams",
-      "Sturdy stainless steel cabinet",
+      "Sturdy stainless steel cabinet"
     ],
-    features: [
+    "features": [
       "One-touch calibration and automatic self-calibration support",
       "Self-diagnostic software for error reporting",
       "Auto zero tracking",
@@ -268,78 +261,124 @@ export const products = [
       "Piece counting",
       "Up to 72 hrs battery backup with low battery warning and cutoff",
       "SMPS 130-280v technology",
-      "Full digital calibration",
+      "Full digital calibration"
     ],
-    applications: [
+    "applications": [
       "Jewellery stores",
       "Precious metals",
       "Laboratories",
-      "Fine measurement counters",
-    ],
+      "Fine measurement counters"
+    ]
   },
   {
-    slug: "micro-mini-scale",
-    name: "Micro Mini Scale",
-    category: "Precision scale series",
-    image: "/assets/micro-mini-scale.jpg",
-    imageWidth: 1184,
-    imageHeight: 1300,
-    download: "/assets/specs/micro-mini-scale.pdf",
-    summary:
-      "A compact precision scale from the Wintex precision range, designed for small-footprint weighing and component-level work.",
-    specs: [
+    "slug": "micro-mini-scale",
+    "name": "Micro Mini Scale",
+    "category": "Precision scale series",
+    "image": "/assets/micro-mini-scale.jpg",
+    "imageWidth": 1184,
+    "imageHeight": 1300,
+    "download": "/assets/specs/micro-mini-scale.pdf",
+    "summary": "A compact precision scale from the Wintex precision range, designed for small-footprint weighing and component-level work.",
+    "specs": [
       "Accurate and fast weighing using the latest 24-bit sigma-delta converter",
       "0.8 inch high dual bright green LED display",
       "Triple accuracy",
       "Printer port optional",
       "RS-232 PC connection optional",
-      "Various conversion units including carat, tola and grams",
+      "Various conversion units including carat, tola and grams"
     ],
-    features: [
+    "features": [
       "Self-diagnostic software for error reporting",
       "Auto zero tracking",
       "Standby mode to conserve power",
       "Piece counting",
       "Up to 72 hrs battery backup with low battery warning and cutoff",
       "SMPS 130-280v technology",
-      "Full digital calibration",
+      "Full digital calibration"
     ],
-    applications: [
+    "applications": [
       "Laboratories",
       "Retail counters",
       "Component weighing",
-      "Quality checks",
-    ],
+      "Quality checks"
+    ]
   },
   {
-    slug: "digital-indicator-it",
-    name: "Digital Indicator / IT",
-    category: "Weighbridge electronics",
-    image: "/assets/wintex-product-render-2.jpg",
-    imageWidth: 919,
-    imageHeight: 1300,
-    download: "/assets/wintex-product-catalogue.pdf",
-    summary:
-      "Wintex digital indicator and intelligent terminal systems support weighbridge operation with data processing, printing, communication, and reliable field use.",
-    specs: [
+    "slug": "digital-indicator-it",
+    "name": "Digital Indicator / IT",
+    "category": "Weighbridge electronics",
+    "image": "/assets/wintex-product-render-2.jpg",
+    "imageWidth": 919,
+    "imageHeight": 1300,
+    "download": "/assets/wintex-product-catalogue.pdf",
+    "summary": "Wintex digital indicator and intelligent terminal systems support weighbridge operation with data processing, printing, communication, and reliable field use.",
+    "specs": [
+      "Available models: WP14, WP74 and WS14",
       "High-performance micro processor based system",
       "Special optical isolators for environmental noise protection",
       "Front-panel push-button calibration",
       "Designed for digital loadcell weighbridge applications",
       "RS-232 communication support for connectivity workflows",
-      "Printing and data-saving workflows for public and industrial weighbridges",
+      "Printing and data-saving workflows for public and industrial weighbridges"
     ],
-    features: [
+    "features": [
       "Protects the system from external electrical noise",
       "Supports continuous weight transmission and modern connectivity workflows",
       "Designed to withstand harsh environmental conditions",
-      "Useful for data processing, saving, printing, and operational records",
+      "Useful for data processing, saving, printing, and operational records"
     ],
-    applications: [
+    "applications": [
       "Public weighbridges",
       "Industrial weighbridges",
       "Toll ways",
-      "Factory dispatch control",
+      "Factory dispatch control"
     ],
+    "models": [
+      "WP14",
+      "WP74",
+      "WS14"
+    ]
   },
+  {
+    "slug": "load-cells",
+    "name": "Load Cells",
+    "category": "Weighbridge load cells",
+    "image": "/assets/installation-1.jpeg",
+    "imageWidth": 1300,
+    "imageHeight": 928,
+    "download": "/assets/wintex-product-catalogue.pdf",
+    "downloadLabel": "Product catalogue",
+    "summary": "Wintex load cells for weighbridge applications, available in 30 t and 42.5 t capacities. Discuss your platform and weighing system with our team to select the right configuration.",
+    "capacities": [
+      "30 t",
+      "42.5 t"
+    ],
+    "specs": [
+      "Available rated capacities: 30 t and 42.5 t",
+      "Confirm mounting and indicator compatibility for your installation with the Wintex team"
+    ],
+    "features": [
+      "Load measurement for weighbridge systems",
+      "Capacity selection to suit your installation",
+      "Configuration guidance from the Wintex team"
+    ],
+    "applications": [
+      "Industrial weighbridges",
+      "Vehicle weighing"
+    ],
+    "gallery": [
+      {
+        "image": "/assets/installation-1.jpeg",
+        "width": 1300,
+        "height": 928,
+        "alt": "Wintex load cell with black mounting assembly"
+      },
+      {
+        "image": "/assets/installation-2.jpeg",
+        "width": 1300,
+        "height": 1253,
+        "alt": "Wintex load cell with metal mounting assembly"
+      }
+    ]
+  }
 ];

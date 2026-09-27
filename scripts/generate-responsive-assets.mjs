@@ -12,6 +12,8 @@ const productWidths = [360, 540, 640, 720, 960, 1280];
 const logoWidths = [180, 360, 720];
 
 const imageJobs = [
+  { file: "adani-logo.svg", widths: [360] },
+  { file: "wbpwd-logo.png", widths: [360] },
   { file: "installation-1.jpeg", widths: productWidths },
   { file: "installation-2.jpeg", widths: productWidths },
   { file: "calibration-technician.jpg", widths: [640, 960] },

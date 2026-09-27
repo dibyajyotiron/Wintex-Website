@@ -13,7 +13,6 @@ import {
   siteUrl,
 } from "../src/config/site.js";
 import { products } from "../src/data/products.js";
-import { products as v2Products } from "../src/v2/products.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -181,7 +180,7 @@ function breadcrumbJsonLd(product) {
 }
 
 function setTitle(html, title) {
-  return html.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
+  return html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
 }
 
 function setMeta(html, attribute, key, content) {
@@ -449,19 +448,33 @@ for (const product of products) {
 
 console.log(`Generated static SEO metadata and AMP alternates for the home page and ${products.length} product URLs.`);
 
-// Parallel design preview: keep the live URLs canonical and serve every V2 deep link
-// as a real HTML file, including Netlify's existing form declarations.
-const v2Routes = [
-  ["", baseHtml],
-  ["enquiry", setTitle(baseHtml, "Discuss your requirement | Wintex Scales")],
-  ["contact", setTitle(baseHtml, "Contact | Wintex Scales")],
-  ...v2Products.map((product) => [`products/${product.slug}`, productHtml(baseHtml, product)]),
-];
-for (const [route, source] of v2Routes) {
-  const outputDir = path.join(dist, "v2", route);
-  await mkdir(outputDir, { recursive: true });
-  const html = setMeta(source, "name", "robots", "noindex, follow")
-    .replace(/<link\s+rel="amphtml"[^>]*>/i, "");
-  await writeFile(path.join(outputDir, "index.html"), html);
-}
-console.log(`Generated ${v2Routes.length} isolated V2 preview routes.`);
+// Emit the contact page with its own metadata and no unrelated AMP alternate.
+const contactTitle = "Discuss your requirement | Wintex Scales";
+const contactDescription = "Contact Wintex Scales for weighing systems, pricing, installation, calibration and support. Send your requirement by WhatsApp or email.";
+let contactHtml = setTitle(baseHtml, contactTitle);
+contactHtml = setCanonical(contactHtml, absoluteUrl("/enquiry"));
+contactHtml = contactHtml.replace(/<link\s+rel="amphtml"[^>]*>/i, "");
+for (const [attribute, key, value] of [["name", "description", contactDescription], ["property", "og:title", contactTitle], ["property", "og:description", contactDescription], ["property", "og:url", absoluteUrl("/enquiry")], ["name", "twitter:title", contactTitle], ["name", "twitter:description", contactDescription]]) contactHtml = setMeta(contactHtml, attribute, key, value);
+contactHtml = setStaticJsonLd(contactHtml, [organizationJsonLd(), { "@context": "https://schema.org", "@type": "ContactPage", name: contactTitle, url: absoluteUrl("/enquiry") }]);
+await mkdir(path.join(dist, "enquiry"), { recursive: true });
+await writeFile(path.join(dist, "enquiry", "index.html"), contactHtml);
+let notFound = setTitle(baseHtml, "Page not found | Wintex Scales").replace(/<link\s+rel="amphtml"[^>]*>/i, "");
+notFound = setMeta(notFound, "name", "robots", "noindex, follow");
+notFound = setCanonical(notFound, absoluteUrl("/404.html"));
+await writeFile(path.join(dist, "404.html"), notFound);
+
+// Generate discovery files from the same catalogue so new products cannot be missed.
+const urls = ["/", "/enquiry", ...products.map(product => `/products/${product.slug}`)];
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(url => `  <url><loc>${escapeHtml(absoluteUrl(url))}</loc></url>`).join("\n")}\n</urlset>\n`;
+await writeFile(path.join(dist, "sitemap.xml"), sitemap);
+await writeFile(path.join(dist, "llms.txt"), `# Wintex Scales\n\n${defaultSeoDescription}\n\n## Pages\n\n- Home: ${siteUrl}/\n- Contact: ${absoluteUrl("/enquiry")}\n${products.map(p => `- ${p.name}: ${absoluteUrl(`/products/${p.slug}`)} — ${p.summary}`).join("\n")}\n\n## Contact\n\n${contactEmail}\n${phoneNumbers.primary}\n${address}\n`);
+
+// Rotate offline caches with each compiled entry bundle, keeping renamed images fresh.
+const entry = baseHtml.match(/src="([^"]+\.js)"/)[1].split("/").pop();
+const sw = await readFile(path.join(dist, "sw.js"), "utf8");
+await writeFile(path.join(dist, "sw.js"), sw.replace("__BUILD_VERSION__", entry));
+console.log(`Generated production contact/404 pages, sitemap and crawler discovery for ${products.length} products.`);
+
+// Keep the source discovery files current for local previews as well.
+await writeFile(path.join(root, "public", "sitemap.xml"), sitemap);
+await writeFile(path.join(root, "public", "llms.txt"), await readFile(path.join(dist, "llms.txt"), "utf8"));

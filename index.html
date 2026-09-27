@@ -7,7 +7,11 @@
         try { saved = localStorage.getItem("wintex-theme"); } catch {}
         document.documentElement.dataset.theme =
           saved === "dark" || saved === "light" ? saved :
-            /^\/v2(?:\/|$)/.test(location.pathname) && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        try {
+          const textScale = { standard: "1", large: "1.125", largest: "1.25" }[localStorage.getItem("wintex-text-size")] || "1";
+          document.documentElement.style.setProperty("--v2-text-scale", textScale);
+        } catch {}
       })();
     </script>
     <meta charset="UTF-8" />

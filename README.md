@@ -1,332 +1,66 @@
-# Wintex Website
+# Wintex Scales
 
-Modern single-page React/Vite website for Wintex Scales / Pionear Scales Industries.
+The approved redesign is the production application at `/`. All ten products use `/products/<slug>` and enquiries use `/enquiry`.
 
-## Local Development
+## Development and verification
 
-```bash
-npm install
+```sh
+npm ci
 npm run dev
-```
-
-The local Vite server usually runs at `http://localhost:5173`.
-
-## Production Build
-
-```bash
 npm run build
+npm run check
+npm run preview
 ```
 
-The compiled site is generated in `dist/`.
+The build generates responsive AVIF/WebP images, PWA icons, page-specific SEO HTML, AMP alternatives, a complete sitemap, crawler information, and a versioned service worker. `npm run check` verifies the route/asset inventory, metadata, structured data, AMP links, Netlify form contracts, and synchronous email/WhatsApp handoffs. `npm run check:v2` remains an alias for older workflows.
 
-The production build also generates static SEO shells for every product URL under:
+## Netlify deployment
 
-```text
-dist/products/<product-slug>/index.html
-```
+`netlify.toml` uses Node 22, builds with `npm run build && npm run check`, and publishes `dist` only when the checks pass. Enable Netlify Forms detection in the existing site's dashboard. All valid pages are emitted as real HTML files, so direct product links and refreshes work without a blanket SPA rewrite. Unknown URLs receive the generated 404 page with HTTP 404, rather than an indexable home-page response.
 
-These files let crawlers and AI indexing systems see product-specific titles, descriptions, canonical URLs, Open Graph tags, and JSON-LD before the React app hydrates.
+- `/v2` and `/v2/*` permanently redirect to the corresponding production URLs.
+- `/contact` redirects to `/enquiry`.
+- Old `#product/<slug>` links still resolve in the browser.
+- Old `#contact`, `#services`, and `#quality` anchors resolve to their replacement sections.
+- Same-page section links use history and scrolling without reloading, including trailing-slash variants. Modified clicks and product-to-home links retain normal browser navigation.
 
-The production build also generates AMP alternates for the home page and every product page:
+No domain, account, notification recipient, or DNS settings are changed by the build.
 
-```text
-dist/amp/index.html
-dist/amp/products/<product-slug>/index.html
-```
+## Netlify lead tracking
 
-Canonical pages include `<link rel="amphtml" ...>` so Google can discover the AMP versions, and AMP pages include `<link rel="canonical" ...>` back to the primary React pages.
+The static hidden form definitions in `index.html` retain the deployed names and fields:
 
-## Netlify Deployment
+- `wintex_quote`: name, company, email, phone, requirement, message, channel, page, submitted_at.
+- `whatsapp_interest`: message, source, page, submitted_at.
 
-Netlify must build the Vite app before publishing it. This repo includes `netlify.toml` with:
+WhatsApp and email compose synchronously in the original click event. The website copy is posted separately to `/` using URL-encoded `form-name` and matching fields with `keepalive`, so tracking does not block the selected app. The service worker never intercepts POST requests. A successful HTTP response is treated as capture success; offline or failed tracking does not falsely report that a message was sent. Users send the prepared message in their chosen app.
 
-- Build command: `npm run build`
-- Publish directory: `dist`
-- SPA fallback redirect: `/* -> /index.html`
+After deployment, verify Forms detection and both form submissions in the existing Netlify dashboard. Local mocks cannot prove live Netlify ingestion, spam filtering, or notification delivery. Existing form notification settings must be checked there.
 
-The previous Netlify log showed `No build steps found` and `Starting to deploy site from '/'`, which means Netlify was uploading the source folder instead of the built Vite output. The `netlify.toml` file fixes that.
+The integration follows [Netlify's JavaScript form setup](https://docs.netlify.com/manage/forms/setup/) and [redirect status handling](https://docs.netlify.com/manage/routing/redirects/redirect-options/).
 
-## Netlify Forms
+## SEO
 
-The site captures leads through Netlify Forms:
+Each canonical product page includes its own title, description, Open Graph/Twitter metadata, Product, Organization, and Breadcrumb JSON-LD. The home page includes Organization, WebSite, ItemList, and Breadcrumb schemas. The enquiry page has ContactPage metadata. Unknown pages are noindex.
 
-- `wintex_quote`: contact section submissions from WhatsApp or email clicks.
-- `whatsapp_interest`: floating WhatsApp widget interest captures.
+Home and all ten products retain static AMP alternates under `/amp/` and `/amp/products/<slug>/`. Sitemap and `llms.txt` are generated from the product catalogue; `robots.txt` links to the sitemap. To validate AMP:
 
-The hidden static form definitions live in:
-
-```text
-index.html
-```
-
-The React submission helper lives in:
-
-```text
-src/utils/netlifyForms.js
-```
-
-In Netlify, make sure Forms detection is enabled, then redeploy. After deploy, Netlify should detect both form names and show submissions in the Forms tab.
-
-## Project Structure
-
-```text
-src/
-  App.jsx                         Main app coordinator
-  App.css                         Global styling and responsive design
-  components/
-    common/                       Reusable UI such as scroll cue and toast
-    layout/                       Header, footer, theme switch, WhatsApp widget
-    product/                      Product detail page
-    sections/                     Home page sections
-  config/
-    site.js                       Contact details, map links, catalogue path
-  data/
-    navigation.js                 Navbar and section order
-    products.js                   Product cards, details, images, spec PDFs
-    siteContent.js                About, services, clients, branches, page content
-  hooks/                          Theme, hash routing, active section logic
-```
-
-## Replacing Assets
-
-All public assets are served from `public/assets/`.
-
-### Logo Files
-
-Replace these files while keeping the same filenames:
-
-- Dark navbar/footer logo: `public/assets/wintex-logo-dark.png`
-- Light-mode logo: `public/assets/wintex-logo-transparent.png`
-- General logo assets: `public/assets/wintex-logo.png`, `public/assets/wintex-logo-lockup.png`
-
-If you change filenames, update the references in:
-
-- `src/components/layout/Header.jsx`
-- `src/components/layout/Footer.jsx`
-
-### Catalogue PDF
-
-Replace:
-
-```text
-public/assets/wintex-product-catalogue.pdf
-```
-
-If you change the filename, update:
-
-```text
-src/config/site.js
-```
-
-Specifically update `cataloguePath`.
-
-### Product Specification PDFs
-
-Product spec PDFs live here:
-
-```text
-public/assets/specs/
-```
-
-Current product PDF paths are configured in:
-
-```text
-src/data/products.js
-```
-
-Each product has a `download` field, for example:
-
-```js
-download: "/assets/specs/pitless-weighbridge.pdf";
-```
-
-To replace a spec, keep the same filename. To use a new filename, update the matching product's `download` field.
-
-### Product Images
-
-Product images live in:
-
-```text
-public/assets/
-```
-
-Product image references are configured in:
-
-```text
-src/data/products.js
-```
-
-Each product has an `image` field, for example:
-
-```js
-image: "/assets/pitless-weighbridge.png";
-```
-
-### Section and Client Images
-
-Other section images and client logos are configured in:
-
-```text
-src/data/siteContent.js
-```
-
-Useful fields:
-
-- `clientLogos` for client logo tiles
-- `companyHighlights`, `services`, `proofPoints`, and `branchLocations` for page text
-
-### Circuit Board Background
-
-The main site background and quality section image use:
-
-```text
-public/assets/circuit-board.jpg
-```
-
-CSS background reference:
-
-```text
-src/App.css
-```
-
-Quality section reference:
-
-```text
-src/components/sections/QualitySection.jsx
-```
-
-## Updating Contact, WhatsApp, Email, or Map
-
-Update:
-
-```text
-src/config/site.js
-```
-
-Important fields:
-
-- `whatsappNumber`
-- `contactEmail`
-- `phoneNumbers`
-- `address`
-- `mapUrl`
-- `mapEmbedUrl`
-
-Use the WhatsApp number without `+`, spaces, or hyphens.
-
-## Adding or Editing Products
-
-Edit:
-
-```text
-src/data/products.js
-```
-
-Each product supports:
-
-- `slug`: used in URL hash, for example `#product/pitless-weighbridge`
-- `name`
-- `category`
-- `image`
-- `download`
-- `summary`
-- `specs`
-- `features`
-- `applications`
-
-After adding a product, run:
-
-```bash
-npm run build
-```
-
-## SEO and AI Search Files
-
-Search metadata is configured in:
-
-```text
-src/data/seo.js
-src/hooks/useSeoMeta.js
-```
-
-Product SEO pages use clean URLs such as:
-
-```text
-https://www.wintex-scales.com/products/electronic-weighbridges
-```
-
-Static product SEO shells are generated automatically by:
-
-```text
-scripts/postbuild-seo.mjs
-```
-
-The same postbuild script also generates AMP pages:
-
-```text
-https://www.wintex-scales.com/amp/
-https://www.wintex-scales.com/amp/products/<product-slug>/
-```
-
-AMP pages are intentionally separate from the React SPA because valid AMP pages cannot include normal custom JavaScript. They are static, fast-loading alternatives built from the same product data in:
-
-```text
-src/data/products.js
-```
-
-Each AMP page includes:
-
-- Valid AMP document markup: `<html amp>`, AMP runtime, AMP boilerplate, and `amp-custom` CSS.
-- Canonical link back to the main page.
-- `amp-img` images with explicit dimensions.
-- Product or organization JSON-LD.
-- Product summary, specs, features, and applications.
-
-Canonical pages include `rel="amphtml"` links:
-
-```text
-/                 -> /amp/
-/products/<slug>  -> /amp/products/<slug>/
-```
-
-Validate AMP output after layout or SEO changes:
-
-```bash
-npm run build
+```sh
 npx --yes amphtml-validator dist/amp/index.html dist/amp/products/*/index.html
 ```
 
-All AMP pages should return `PASS`. If an AMP page fails validation, Google may ignore the AMP alternate.
+## Performance
 
-If you add, remove, or rename a product slug in `src/data/products.js`, also update:
+Responsive images use explicit dimensions, AVIF/WebP sources and lazy loading. Hero/product lead images are prioritized. The map is lazy-loaded, with retry and a direct Google Maps fallback. Build-hashed JS/CSS and bounded offline caches are versioned per build; unversioned assets revalidate in the background. Old cache generations are removed on activation. The PWA manifest and icons are retained.
 
-```text
-public/sitemap.xml
-public/llms.txt
-```
+## Source
 
-Then run `npm run build` and confirm the generated canonical product pages and AMP product pages match the current product list.
+- `src/App.jsx`, `src/App.css`: approved UI. Existing `v2-` CSS names are intentionally retained to avoid unnecessary selector changes; they do not represent a separate application.
+- `src/data/products.js`: all products, IT models, load-cell capacities, photos, and PDFs.
+- `src/data/siteContent.js`: company facts, clients, services, branches.
+- `src/config/site.js`: canonical domain, phone, email, map, WhatsApp, and catalogue settings.
+- `src/utils/enquiry.js`, `src/utils/netlifyForms.js`: compose actions and tracking.
+- `src/data/seo.js`, `src/hooks/useSeoMeta.js`, `scripts/postbuild-seo.mjs`: metadata and discovery output.
+- `src/components/motion/`: installed beUI components and their shared helpers.
 
-Crawler files:
-
-- `public/sitemap.xml` lists the home page and product detail URLs for Google Search Console submission.
-- `public/robots.txt` allows crawlers and points them to the sitemap.
-- `public/llms.txt` gives AI search/indexing systems a plain-text summary of the company, products, and key URLs.
-
-The production domain is configured in:
-
-```text
-src/config/site.js
-```
-
-Update `siteUrl` if the domain changes.
-
-## Navigation
-
-Navbar items and scroll-section order are defined in:
-
-```text
-src/data/navigation.js
-```
-
-Every navbar item should point to a real section `id` in the rendered page.
+Replace source assets in `public/assets/` with the same filenames, then rebuild. Product PDFs remain under `public/assets/specs/`. Theme and reading-size preferences persist locally using the existing Wintex keys.

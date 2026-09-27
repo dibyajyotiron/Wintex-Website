@@ -46,9 +46,11 @@ function setJsonLd(id, data) {
   element.textContent = JSON.stringify(data);
 }
 
-export function useSeoMeta(product) {
+export function useSeoMeta(product, { isEnquiry = false, notFound = false } = {}) {
   useEffect(() => {
-    const seo = product ? productSeo(product) : homeSeo;
+    const seo = notFound ? { title: "Page not found | Wintex Scales", description: "The requested page could not be found.", keywords: [], canonicalPath: "/404.html" }
+      : isEnquiry ? { title: "Discuss your requirement | Wintex Scales", description: "Contact Wintex Scales for weighing systems, pricing, installation, calibration and support. Send your requirement by WhatsApp or email.", keywords: homeSeo.keywords, canonicalPath: "/enquiry" }
+      : product ? productSeo(product) : homeSeo;
     const canonical = absoluteUrl(seo.canonicalPath);
     const image = product
       ? absoluteUrl(product.image)
@@ -57,7 +59,7 @@ export function useSeoMeta(product) {
     document.title = seo.title;
     setMeta("description", seo.description || defaultSeoDescription);
     setMeta("keywords", seo.keywords.join(", "));
-    setMeta("robots", "index, follow, max-image-preview:large");
+    setMeta("robots", notFound ? "noindex, follow" : "index, follow, max-image-preview:large");
     setMeta("author", siteName);
     setLink("canonical", canonical);
 
@@ -73,14 +75,20 @@ export function useSeoMeta(product) {
     setMeta("twitter:description", seo.description);
     setMeta("twitter:image", image);
 
-    if (product) {
-      setJsonLd("wintex-jsonld-primary", [
+    if (notFound) {
+      document.getElementById("wintex-static-jsonld")?.remove();
+    } else if (isEnquiry) {
+      setJsonLd("wintex-static-jsonld", [organizationJsonLd(), {
+        "@context": "https://schema.org", "@type": "ContactPage", name: seo.title, url: canonical,
+      }]);
+    } else if (product) {
+      setJsonLd("wintex-static-jsonld", [
         organizationJsonLd(),
         productJsonLd(product),
         breadcrumbJsonLd(product),
       ]);
     } else {
-      setJsonLd("wintex-jsonld-primary", [
+      setJsonLd("wintex-static-jsonld", [
         organizationJsonLd(),
         websiteJsonLd(),
         productItemListJsonLd(),
@@ -88,12 +96,14 @@ export function useSeoMeta(product) {
       ]);
     }
 
+    if (isEnquiry || notFound) document.querySelector('link[rel="amphtml"]')?.remove();
+    else setLink("amphtml", absoluteUrl(product ? `/amp/products/${product.slug}/` : "/amp/"));
+
     setMeta("application-name", siteName);
     setMeta("theme-color", product ? "#090909" : "#d40f18");
     setMeta("geo.region", "IN-WB");
     setMeta("geo.placename", "Howrah, West Bengal");
     setMeta("ICBM", "22.6049346, 88.2996271");
     setLink("home", siteUrl);
-  }, [product]);
+  }, [product, isEnquiry, notFound]);
 }
-
